@@ -15,6 +15,7 @@ import org.usfirst.frc2876.Steamworks2017.RobotMap;
 import org.usfirst.frc2876.Steamworks2017.commands.*;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 /**
@@ -45,6 +46,27 @@ public class Vision extends Subsystem {
     	
         // Set the default command for a subsystem here.
         // setDefaultCommand(new MySpecialCommand());
+    }
+    public void testPixy(){
+    	PixyPacket packet = null;
+    	SmartDashboard.putString("Pixy hello", "working");
+    	for(int i = 1; i < 8; i++) {   		
+	    	try {
+				packet = pixy.readPacket(i);
+			} catch (PixyException e) {
+				SmartDashboard.putString("Pixy Error: " + i, "exception");
+			}
+	    	if(packet == null){
+	    		SmartDashboard.putString("Pixy Error: " + i, "True");
+	    		continue;
+	    	}
+	    	SmartDashboard.putNumber("Pixy X Value: " + i, packet.X);
+	    	SmartDashboard.putNumber("Pixy Y Value: " + i, packet.Y);
+	    	SmartDashboard.putNumber("Pixy Width Value: " + i, packet.Width);
+	    	SmartDashboard.putNumber("Pixy Height Value: " + i, packet.Height);
+	    	SmartDashboard.putString("Pixy Error: " + i, "False");
+    	}
+    	
     }
 }
 

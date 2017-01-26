@@ -3,6 +3,7 @@ package org.usfirst.frc2876.Steamworks2017.subsystems;
 
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.I2C.Port;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class PixyI2C {
@@ -32,9 +33,11 @@ public class PixyI2C {
 		int Checksum;												   //pixymon you are trying to get data for
 		int Sig;
 		byte[] rawData = new byte[32];
+		SmartDashboard.putString("rawData", rawData[0] + " " + rawData[1] + " " + rawData[15] + " " + rawData[31]);		
 		try{
-			pixy.readOnly(rawData, 32);
+			pixy.readOnly(rawData, 32);	
 		} catch (RuntimeException e){
+			SmartDashboard.putString("Pixy RuntimeException", "Error");
 		}
 		if(rawData.length < 32){
 			System.out.println("byte array length is broken");
@@ -53,6 +56,7 @@ public class PixyI2C {
 				if(Sig <= 0 || Sig > packets.length){
 					break;
 				}
+				
 				packets[Sig - 1] = new PixyPacket();
 				packets[Sig - 1].X = cvt(rawData[i+9], rawData[i+8]);
 				packets[Sig - 1].Y = cvt(rawData[i+11], rawData[i+10]);
@@ -65,6 +69,8 @@ public class PixyI2C {
 				}
 				break;
 			}
+			else
+				SmartDashboard.putNumber("syncword: ", syncWord);
 		}
 		//Assigns our packet to a temp packet, then deletes data so that we dont return old data
 		PixyPacket pkt = packets[Signature - 1];
