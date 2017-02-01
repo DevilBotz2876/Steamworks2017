@@ -13,6 +13,7 @@ package org.usfirst.frc2876.Steamworks2017.subsystems;
 
 import org.usfirst.frc2876.Steamworks2017.RobotMap;
 import org.usfirst.frc2876.Steamworks2017.commands.*;
+import org.usfirst.frc2876.Steamworks2017.Robot;
 
 import com.ctre.CANTalon;
 
@@ -20,6 +21,7 @@ import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 /**
@@ -72,6 +74,31 @@ public class DriveTrain extends Subsystem {
 
         // Set the default command for a subsystem here.
         // setDefaultCommand(new MySpecialCommand());
+    }
+    
+    public void updateSmartDashboard(){
+//		boolean sensorPluggedIn = (frontRightTalon.isSensorPresent(FeedbackDevice.QuadEncoder) == FeedbackDeviceStatus.FeedbackStatusPresent);
+//		SmartDashboard.putBoolean("fr encoder isSensorPresent ", sensorPluggedIn);
+    //	SmartDashboard.putData("Left Encoder", getLeftEncoder());
+//    	SmartDashboard.putData("Right Encoder", getRightEncoder());
+//    	SmartDashboard.putNumber("Right Encoder d", leftEncoder.getDistance());
+//    	SmartDashboard.putNumber("Left Encoder d", rightEncoder.getDistance());
+    	SmartDashboard.putBoolean("is navX connected", Robot.navX.isConnected());
+    	SmartDashboard.putBoolean("is navX calibrating", Robot.navX.isCalibrating());
+    	SmartDashboard.putData("NavX", Robot.navX);
+    	SmartDashboard.putBoolean("is navX moving", Robot.navX.isMoving());
+    	SmartDashboard.putBoolean("is navX rotating", Robot.navX.isRotating());
+    	SmartDashboard.putNumber("navX angle", Robot.navX.getAngle());
+    	SmartDashboard.putNumber("navX pitch", Robot.navX.getPitch());
+    	SmartDashboard.putNumber("navX yaw", Robot.navX.getYaw());
+    	SmartDashboard.putNumber("navX roll", Robot.navX.getRoll());
+    	SmartDashboard.putNumber("navX WorldX", Robot.navX.getWorldLinearAccelX());
+    	SmartDashboard.putNumber("navX WorldY", Robot.navX.getWorldLinearAccelY());
+    	SmartDashboard.putNumber("navX WorldZ", Robot.navX.getWorldLinearAccelZ());
+    //	SmartDashboard.putNumber("Accel RoboRio", accel.getAcceleration());
+    //	SmartDashboard.putData("pid", turnController);
+  //  	SmartDashboard.putNumber("pid output", turnController.get());
+//    	SmartDashboard.putBoolean("is crossing", isCrossing);
     }
     
 }
