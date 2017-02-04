@@ -78,8 +78,6 @@ public class OI {
         SmartDashboard.putData("IntakeStart", new IntakeStart());
         SmartDashboard.putData("IntakeStop", new IntakeStop());
         SmartDashboard.putData("PixyAlignWithTarget", new PixyAlignWithTarget());
-        SmartDashboard.putData("AutoToCenterPeg", new AutoToCenterPeg());
-        SmartDashboard.putData("AutoTurn", new AutoTurn());
         SmartDashboard.putData("AutoAlignToShoot", new AutoAlignToShoot());
         SmartDashboard.putData("AutoShoot", new AutoShoot());
 

@@ -12,7 +12,6 @@
 package org.usfirst.frc2876.Steamworks2017.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc2876.Steamworks2017.Robot;
-import org.usfirst.frc2876.Steamworks2017.RobotMap;
 
 /**
  *
@@ -42,18 +41,15 @@ public class AutoDriveDistance extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-		RobotMap.driveTrainLeftEncoder.reset(); 
-		RobotMap.driveTrainRightEncoder.reset();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.driveTrain.myRobot.setLeftRightMotorOutputs(m_speed, -m_speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return (RobotMap.driveTrainLeftEncoder.getDistance() + RobotMap.driveTrainRightEncoder.getDistance()) / 2 >= m_distance;
+        return false;
     }
 
     // Called once after isFinished returns true
