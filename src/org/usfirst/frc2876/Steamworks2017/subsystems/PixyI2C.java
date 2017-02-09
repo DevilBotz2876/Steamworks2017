@@ -14,10 +14,16 @@ public class PixyI2C {
 	PixyException pExc;
 	String print;
 	public PixyI2C() {
-		pixy = new I2C(port, 0x54);
-		packets = new PixyPacket[7];
-		pExc = new PixyException(print);
-		values = new PixyPacket();
+//		pixy = new I2C(port, 0x54);
+//		packets = new PixyPacket[7];
+//		pExc = new PixyException(print);
+//		values = new PixyPacket();
+	}
+	public PixyI2C(I2C argPixy, PixyPacket[] argPixyPacket, PixyException argPixyException, PixyPacket argValues){
+		pixy = argPixy;
+		packets = argPixyPacket;
+		pExc = argPixyException;
+		values = argValues;
 	}
 	//This method parses raw data from the pixy into readable integers
 	public int cvt(byte upper, byte lower) {
@@ -92,15 +98,4 @@ public class PixyI2C {
 	public int getArea(){
 		return getWidth() * getHeight();
 	}
-	/* vvvvv Experimental Stuff vvvvv
-	int height = 12; //actual target height
-	int width = 24; //actual target width
-	int w = 320 - getX(); //320 is camera x resolution
-	int x = 5;
-	double d = Math.sqrt(41);
-	//gets the horizontal component of the distance
-	public double getDistance(int angle){
-		return width*320/(2*getWidth()*Math.tan(angle));
-	}
-	*/
 }

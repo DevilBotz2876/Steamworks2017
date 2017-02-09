@@ -56,9 +56,9 @@ public class PixyAlignWithTarget extends Command {
 //    	Robot.driveTrain.myRobot.setLeftRightMotorOutputs(.3, -.3);
     	
     	try {
-	    	if(Robot.vision.packet[0].X < 159)
+	    	if(Robot.vision.packet1[0].X < 159)
 	    		Robot.driveTrain.myRobot.setLeftRightMotorOutputs(-.3, -.3);
-	    	else if(Robot.vision.packet[0].X > 161)   
+	    	else if(Robot.vision.packet1[0].X > 161)   
 	    		Robot.driveTrain.myRobot.setLeftRightMotorOutputs(.3, .3);
 	    	else
 	    		withinRange = true;
