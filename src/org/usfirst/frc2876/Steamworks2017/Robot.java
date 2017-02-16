@@ -132,9 +132,11 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
         driveTrain.updateSmartDashboard();
-        vision.testPixy();
+//        vision.testPixy();
+        vision.testPixy1();
+        vision.testPixy2();
         try{
-        	SmartDashboard.putString("Packet 1 x is ", vision.packet[0].X + "!");
+        	SmartDashboard.putString("Packet 1 x is ", vision.packet1[0].X + "!");
         } catch (NullPointerException e) {
         	SmartDashboard.putString("Packet 1 x is ", "null");
         }
