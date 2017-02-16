@@ -44,9 +44,14 @@ public class Shooter extends Subsystem {
 
         // Set the default command for a subsystem here.
         // setDefaultCommand(new MySpecialCommand());
+    	setDefaultCommand(new ShooterIdle());
     }
-    public void shooterSpeed(){
+    public void shooterStart(){
     	talon.set(1);
+    }
+    public void shooterStop(){
+    	talon.set(0);
+    	
     }
 }
 

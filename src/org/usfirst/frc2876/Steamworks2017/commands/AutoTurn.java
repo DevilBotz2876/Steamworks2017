@@ -38,18 +38,17 @@ public class AutoTurn extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	//set gyro angle to 0 degrees
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	//turn to the right
+    
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	//checks gyro angle
-    	//when the angle of robot matches our set angle return true
-        return false;
+       return false;
     }
 
     // Called once after isFinished returns true
