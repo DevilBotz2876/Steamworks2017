@@ -6,4 +6,12 @@ public class PixyPacket {
 	public int Width;
 	public int Height;
 	public int checksumError;
+	
+	public String toString() {
+		return "" + 
+	" X:" + X + 
+	" Y:" + Y +
+	" W:" + Width + 
+	" H:" + Height;
+	}
 }
