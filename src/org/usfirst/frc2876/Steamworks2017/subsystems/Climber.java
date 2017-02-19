@@ -48,7 +48,7 @@ public class Climber extends Subsystem {
     	setDefaultCommand(new ClimberStop());
     }
     public void climberStart(){
-    	climberTalon.set(1);
+    	climberTalon.set(-1);
     }
     public void climberStop(){
     	climberTalon.set(0);
