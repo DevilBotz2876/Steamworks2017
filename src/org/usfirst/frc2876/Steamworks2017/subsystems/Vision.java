@@ -140,7 +140,122 @@ public class Vision extends Subsystem {
 		}
 		SmartDashboard.putString("PixyPeg1", peg1.toString());
 		SmartDashboard.putString("PixyPeg2", peg2.toString());
+
+	}
+
+	// public PixyPacket[] leftBucket = new PixyPacket[5];
+	// int lefti=0;
+	// public PixyPacket[] rightBucket = new PixyPacket[5];
+	// int righti=0;
+	//
+	// public void checkPeg() {
+	// PixyPacket block = null;
+	// // read pixy and sort into buckets
+	// // if first time, put first packet into left.
+	// try {
+	// block = pixy1.readPacket(1);
+	// } catch (PixyException e) {
+	// SmartDashboard.putString("PixyPeg1 Exception: ", e.toString());
+	// }
+	// if (block == null) {
+	// return;
+	// }
+	//
+	// if (leftBucket[lefti] == null && rightBucket[righti] == null) {
+	// leftBucket[lefti] = block;
+	// lefti++;
+	// } else {
+	// if (leftBucket[lefti] != null) {
+	// if (leftBucket[lefti].X == block.X) {
+	//
+	// }
+	// }
+	// }
+	//
+	//
+	// }
+
+	int leftBucket = 0;
+	int left = 0;
+	int rightBucket = 0;
+	int right = 0;
+	int maxBucketReadings = 10;
+	int pegPosition = -1;
+
+	private boolean inRange(int x1, int x2) {
+		int tolerance = 5;
+		if (Math.abs(x1-x2) > tolerance) {
+			return false;
+		}
+		return true;
+	}
+	
+	private void addToBucket(PixyPacket block) {
+		if (inRange(leftBucket/left, block.X)) {
+			leftBucket += block.X;
+			left++;
+		} else if(inRange(rightBucket/right, block.X)) {
+			rightBucket += block.X;
+			right++;
+		} else {
+			SmartDashboard.putString("CrazyBlock ", block.toString());
+		}
+	}
+
+	public void checkPeg() {
+		PixyPacket block = null;
+		// read pixy and sort into buckets
+		// if first time, put first packet into left.
+		try {
+			block = pixy1.readPacket(1);
+		} catch (PixyException e) {
+			SmartDashboard.putString("PixyPeg1 Exception: ", e.toString());
+		}
+		if (block == null) {
+			return;
+		}
+		SmartDashboard.putString("Peg Block", block.toString());
 		
+		// First time ever
+		if (leftBucket == 0 && rightBucket == 0) {
+			leftBucket += block.X;
+			left++;
+		} else {
+			if (leftBucket != 0) {
+				addToBucket(block);			
+			} else if (rightBucket != 0) {
+				addToBucket(block);
+			} else {
+				// Should never see this
+				SmartDashboard.putString("checkPeg", "Something crazy happend");
+			}
+		}
+		SmartDashboard.putString("Buckets", 
+				" left: " + left +
+				" right: " + right +
+				" leftBucket: " + leftBucket +
+				" rightBucket: " + rightBucket);
+	}
+
+	public boolean isPegReadingReady() {
+		if (left + right < maxBucketReadings) {
+			return false;
+		}
+		
+		return true;
+	}
+
+	public int getPegPostion() {
+		if (isPegReadingReady()) {
+			int leftavg = leftBucket/left;
+			int rightavg = rightBucket/right;
+			pegPosition = (leftavg+rightavg) / 2; 
+			leftBucket = rightBucket = left = right = 0;
+			SmartDashboard.putNumber("PegPosition", pegPosition);
+			return pegPosition;
+		}
+		// No peg to see
+		return -1;
 	}
 
 }
