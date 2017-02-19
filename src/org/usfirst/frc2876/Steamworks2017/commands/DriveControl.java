@@ -41,6 +41,7 @@ public class DriveControl extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		Robot.driveTrain.setVelocityMode();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -56,8 +57,8 @@ public class DriveControl extends Command {
 		// (1 - rampConstant) * Robot.oi.getLeftY()) * sensitivity;
 		// double rightX = (rampConstant * Math.pow(Robot.oi.getRightX(), 3) +
 		// (1 - rampConstant) * Robot.oi.getRightX()) * (sensitivity + .15);
-		// Robot.driveTrain.myRobot.arcadeDrive(leftY, rightX, true);
-		Robot.driveTrain.velocity(leftY, rightX);
+//		 Robot.driveTrain.myRobot.arcadeDrive(leftY, rightX, true);
+		Robot.driveTrain.setVelocity(leftY, rightX);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

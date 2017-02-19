@@ -47,7 +47,7 @@ public class Shooter extends Subsystem {
     	setDefaultCommand(new ShooterIdle());
     }
     public void shooterStart(){
-    	talon.set(1);
+    	talon.set(-.6);
     }
     public void shooterStop(){
     	talon.set(0);
