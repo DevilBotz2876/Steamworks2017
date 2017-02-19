@@ -147,8 +147,11 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putData(intake);
     	SmartDashboard.putData(shooter);
     	SmartDashboard.putData(climber);
-    	    	
-        vision.pegTarget();
+    	  
+    	vision.checkPeg();
+    	vision.getPegPostion();
+    	
+        //vision.pegTarget();
        // vision.testPixy1();
         vision.testPixy2();
         try{
