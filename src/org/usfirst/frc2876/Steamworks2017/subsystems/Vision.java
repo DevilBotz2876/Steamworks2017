@@ -138,6 +138,15 @@ public class Vision extends Subsystem {
 		} catch (PixyException e) {
 			SmartDashboard.putString("PixyPeg2 Exception: ", e.toString());
 		}
+
+		if (peg1 != null) {
+			SmartDashboard.putString("PixyPeg1", peg1.toString());
+		}
+		if (peg2 != null) {
+			SmartDashboard.putString("PixyPeg2", peg2.toString());
+		}
+
+
 		SmartDashboard.putString("PixyPeg1", peg1.toString());
 		SmartDashboard.putString("PixyPeg2", peg2.toString());
 
