@@ -57,8 +57,11 @@ public class DriveControl extends Command {
 		// (1 - rampConstant) * Robot.oi.getLeftY()) * sensitivity;
 		// double rightX = (rampConstant * Math.pow(Robot.oi.getRightX(), 3) +
 		// (1 - rampConstant) * Robot.oi.getRightX()) * (sensitivity + .15);
-//		 Robot.driveTrain.myRobot.arcadeDrive(leftY, rightX, true);
-		Robot.driveTrain.setVelocity(leftY, rightX);
+		// Robot.driveTrain.myRobot.arcadeDrive(leftY, rightX, true);
+		if (Robot.driveTrain.isTurnRunning() == false && Robot.driveTrain.isDistanceRunning() == false) {
+			Robot.driveTrain.setVelocityJoysticks(leftY, rightX);
+		}
+
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

@@ -24,9 +24,9 @@ public class CGCenterGearThenShoot extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	addSequential(new AutoDriveDistance(10, .5));
+    	addSequential(new AutoDriveDistance(10));
     	addSequential(new AutoAdjustToLift());
     	addSequential(new AutoTurning(90));
-    	addSequential(new AutoDriveDistance(10, .5));    
+    	addSequential(new AutoDriveDistance(10));    
     }
 }

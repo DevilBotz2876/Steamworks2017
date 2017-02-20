@@ -251,14 +251,10 @@ public class Vision extends Subsystem {
 
 	public void getPegPositionSecondTry() {
 		PixyPacket[] blocks = pixy1.readBlocks();
-		if (blocks == null) {
+		SmartDashboard.putBoolean("Peg Blocks Array is null", blocks == null);
+		if (blocks == null)
 			return;
-		}
-		if (blocks[0] != null) {
-			SmartDashboard.putString("Peg Block 0", blocks[0].toString());
-		}
-		if (blocks[1] != null) {
-			SmartDashboard.putString("Peg Block 1", blocks[1].toString());
-		}
+		SmartDashboard.putString("Peg Block 0", (blocks[0] == null) ? "null" : blocks[0].toString());
+		SmartDashboard.putString("Peg Block 1", (blocks[1] == null) ? "null" : blocks[1].toString());
 	}
 }
