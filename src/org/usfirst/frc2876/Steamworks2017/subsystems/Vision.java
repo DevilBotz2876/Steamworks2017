@@ -42,8 +42,8 @@ public class Vision extends Subsystem {
 
 	public Vision() {
 		// pixy = new PixyI2C();
-		pixy1 = new PixyI2C(new I2C(port, 0x54), packet1, new PixyException(print), new PixyPacket());
-		pixy2 = new PixyI2C(new I2C(port, 0x55), packet2, new PixyException(print), new PixyPacket());
+		pixy1 = new PixyI2C("gear", new I2C(port, 0x54), packet1, new PixyException(print), new PixyPacket());
+		pixy2 = new PixyI2C("boiler", new I2C(port, 0x55), packet2, new PixyException(print), new PixyPacket());
 	}
 
 	// Put methods for controlling this subsystem
@@ -151,38 +151,6 @@ public class Vision extends Subsystem {
 
 	}
 
-	// public PixyPacket[] leftBucket = new PixyPacket[5];
-	// int lefti=0;
-	// public PixyPacket[] rightBucket = new PixyPacket[5];
-	// int righti=0;
-	//
-	// public void checkPeg() {
-	// PixyPacket block = null;
-	// // read pixy and sort into buckets
-	// // if first time, put first packet into left.
-	// try {
-	// block = pixy1.readPacket(1);
-	// } catch (PixyException e) {
-	// SmartDashboard.putString("PixyPeg1 Exception: ", e.toString());
-	// }
-	// if (block == null) {
-	// return;
-	// }
-	//
-	// if (leftBucket[lefti] == null && rightBucket[righti] == null) {
-	// leftBucket[lefti] = block;
-	// lefti++;
-	// } else {
-	// if (leftBucket[lefti] != null) {
-	// if (leftBucket[lefti].X == block.X) {
-	//
-	// }
-	// }
-	// }
-	//
-	//
-	// }
-
 	int leftBucket = 0;
 	int left = 0;
 	int rightBucket = 0;
@@ -261,7 +229,7 @@ public class Vision extends Subsystem {
 				int leftavg = leftBucket / left;
 				int rightavg = rightBucket / right;
 				pegPosition = (leftavg + rightavg) / 2;
-			
+
 			} else if (left == 0) {
 				pegPosition = rightBucket / right;
 				numSeen = "RIGHT";
@@ -276,9 +244,21 @@ public class Vision extends Subsystem {
 		// No peg to see
 		return -1;
 	}
-	
+
 	public void resetPegDetect() {
 		leftBucket = rightBucket = left = right = 0;
 	}
 
+	public void getPegPositionSecondTry() {
+		PixyPacket[] blocks = pixy1.readBlocks();
+		if (blocks == null) {
+			return;
+		}
+		if (blocks[0] != null) {
+			SmartDashboard.putString("Peg Block 0", blocks[0].toString());
+		}
+		if (blocks[1] != null) {
+			SmartDashboard.putString("Peg Block 1", blocks[1].toString());
+		}
+	}
 }
