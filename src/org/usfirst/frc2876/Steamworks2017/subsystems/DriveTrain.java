@@ -39,7 +39,7 @@ public class DriveTrain extends Subsystem {
 	public double getDistanceReturn = 1;
 	private boolean toggleInverseDrive = false;
 	private boolean toggleHelp;
-	
+
 	private final double MAX_RPM = 3127.0f;
 	private final double kTurnToleranceDegrees = 2.0f;
 	private final double kDistanceTolerance = 2.0f;
@@ -91,10 +91,10 @@ public class DriveTrain extends Subsystem {
 			}
 		});
 		straightController.setOutputRange(-MAX_RPM, MAX_RPM);
-		
+
 		distanceController = new PIDController(10, 0, 0, 10, new AvgEncoder(), new PIDOutput() {
 			public void pidWrite(double output) {
-				
+
 				SmartDashboard.putNumber("distancePidOutput", output);
 			}
 		});
@@ -103,7 +103,15 @@ public class DriveTrain extends Subsystem {
 
 		turnController = new PIDController(15, 0, 0, navx, new PIDOutput() {
 			public void pidWrite(double output) {
+				double minMove = 400.0f;
 				SmartDashboard.putNumber("TurnPidOutput", output);
+				if (Math.abs(output) < minMove) {
+					if (output < 0) {
+						output = -minMove;
+					} else if (output > 0) {
+						output = minMove;
+					}
+				}
 
 				leftMaster.set(-output);
 				rightMaster.set(output);
@@ -190,13 +198,13 @@ public class DriveTrain extends Subsystem {
 		SmartDashboard.putNumber("frontRightValue", frontRightTalon.get());
 		SmartDashboard.putNumber("rearLeftValue", rearLeftTalon.get());
 		SmartDashboard.putNumber("rearRightValue", rearRightTalon.get());
-		
+
 		SmartDashboard.putNumber("LeftMasterSetpoint", leftMaster.getSetpoint());
 		SmartDashboard.putNumber("RightMasterSetpoint", rightMaster.getSetpoint());
-		
+
 		SmartDashboard.putData("Straight PID", straightController);
 		SmartDashboard.putNumber("Straight PID get", straightController.get());
-		
+
 		SmartDashboard.putData("Distance PID", distanceController);
 		SmartDashboard.putNumber("Distance PID get", distanceController.get());
 
@@ -207,7 +215,7 @@ public class DriveTrain extends Subsystem {
 		SmartDashboard.putNumber("Left Encoder Value", rearLeftTalon.getEncPosition());
 		SmartDashboard.putNumber("Right Encoder Value", rearRightTalon.getEncPosition());
 		SmartDashboard.putNumber("average", average);
-		
+
 	}
 
 	public void resetEncoders() {
@@ -221,7 +229,7 @@ public class DriveTrain extends Subsystem {
 		// return average / (Math.PI * WHEEL_DIAMETER * GEAR_RATIO);
 		return average / PULSES_PER_REV * Math.PI * WHEEL_DIAMETER;
 	}
-	
+
 	public void setSpeed(double speed) {
 		myRobot.arcadeDrive(speed, -straightController.get(), true);
 		SmartDashboard.putNumber("Speed", speed);
@@ -229,15 +237,20 @@ public class DriveTrain extends Subsystem {
 
 	public void velocityTankStraightJoysticks(double speed) {
 		double straight = straightController.get();
-		rearRightTalon.set((speed * 3127)+straight);
-		rearLeftTalon.set((speed * 3127)-straight);
+		rearRightTalon.set((speed * 3127) + straight);
+		rearLeftTalon.set((speed * 3127) - straight);
 	}
-	
+
 	public void velocityDistanceStraight() {
 		double straight = straightController.get();
 		double distance = -distanceController.get();
-		rightMaster.set(distance+straight);
-		leftMaster.set(distance-straight);
+		double r = distance + straight;
+		double l = distance - straight;
+		// TODO if r/l are less then some min, 300, 400? set to that min else
+		// the robot won't move. Need a min value to make robot overcome
+		// friction/inertia. Or better PID tuning?
+		rightMaster.set(r);
+		leftMaster.set(l);
 	}
 
 	public void setVelocityMode() {
@@ -289,29 +302,29 @@ public class DriveTrain extends Subsystem {
 	// for going in a straight line? Or are we going to have use talon in
 	// velocity mode and cascade PIDs like for turn and straight?
 
-//	public void startDistance(double d) {
-//		// TODO
-//		// d is in inches.. convert it to native units
-//		leftMaster.changeControlMode(TalonControlMode.Position);
-//		rightMaster.changeControlMode(TalonControlMode.Position);
-//		leftMaster.set(d);
-//		rightMaster.set(d);
-//	}
-//
-//	public boolean isDistanceDone() {
-//		double lerr = leftMaster.getClosedLoopError();
-//		double rerr = rightMaster.getClosedLoopError();
-//		// TODO: just a guess at error.. need to test.
-//		return ((lerr + rerr) / 2) < 100;
-//	}
-//
-//	public void stopDistance() {
-//		leftMaster.changeControlMode(TalonControlMode.Speed);
-//		rightMaster.changeControlMode(TalonControlMode.Speed);
-//		leftMaster.set(0);
-//		rightMaster.set(0);
-//	}
-	
+	// public void startDistance(double d) {
+	// // TODO
+	// // d is in inches.. convert it to native units
+	// leftMaster.changeControlMode(TalonControlMode.Position);
+	// rightMaster.changeControlMode(TalonControlMode.Position);
+	// leftMaster.set(d);
+	// rightMaster.set(d);
+	// }
+	//
+	// public boolean isDistanceDone() {
+	// double lerr = leftMaster.getClosedLoopError();
+	// double rerr = rightMaster.getClosedLoopError();
+	// // TODO: just a guess at error.. need to test.
+	// return ((lerr + rerr) / 2) < 100;
+	// }
+	//
+	// public void stopDistance() {
+	// leftMaster.changeControlMode(TalonControlMode.Speed);
+	// rightMaster.changeControlMode(TalonControlMode.Speed);
+	// leftMaster.set(0);
+	// rightMaster.set(0);
+	// }
+
 	public void startDistance(double distance) {
 		stopTurn();
 		distanceController.reset();
@@ -319,6 +332,7 @@ public class DriveTrain extends Subsystem {
 		distanceController.setSetpoint(distance);
 		distanceController.enable();
 	}
+
 	public boolean isDistanceRunning() {
 		return distanceController.isEnabled();
 	}
@@ -336,6 +350,7 @@ public class DriveTrain extends Subsystem {
 
 	public void startTurn(double angle) {
 		SmartDashboard.putNumber("TurnPidOutput", 0);
+		navx.reset();
 		stopStraight();
 		turnController.reset();
 		turnController.setSetpoint(angle);
@@ -375,7 +390,7 @@ public class DriveTrain extends Subsystem {
 	public PIDController getDistancePID() {
 		return distanceController;
 	}
-	
+
 	public PIDController getTurnPID() {
 		return turnController;
 	}
@@ -383,15 +398,14 @@ public class DriveTrain extends Subsystem {
 	public PIDController getStraightPID() {
 		return straightController;
 	}
-	
-	public double nativeToInches(double nativeUnits){
+
+	public double nativeToInches(double nativeUnits) {
 		double circumference = Math.PI * WHEEL_DIAMETER;
 		return (nativeUnits / PULSES_PER_REV) * circumference;
 	}
-	
 
 	private class AvgEncoder implements PIDSource {
-		
+
 		public double pidGet() {
 			double l = nativeToInches(leftMaster.getEncPosition());
 			double r = nativeToInches(rightMaster.getEncPosition());
@@ -405,7 +419,7 @@ public class DriveTrain extends Subsystem {
 		@Override
 		public void setPIDSourceType(PIDSourceType pidSource) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override

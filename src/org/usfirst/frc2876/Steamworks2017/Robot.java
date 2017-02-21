@@ -148,20 +148,7 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putData(intake);
     	SmartDashboard.putData(shooter);
     	SmartDashboard.putData(climber);
-    	  
-    	vision.getPegPositionSecondTry();
-    	
-//    	vision.checkPeg();
-//    	vision.getPegPostion();
-    	
-        //vision.pegTarget();
-       // vision.testPixy1();
-        vision.testPixy2();
-        try{
-        	SmartDashboard.putString("Packet 1 x is ", vision.packet1[0].X + "!");
-        } catch (NullPointerException e) {
-        	SmartDashboard.putString("Packet 1 x is ", "null");
-        }
+
         RobotMap.driveTrainLightSpike.set(Value.kForward);
         
     }

@@ -126,31 +126,7 @@ public class Vision extends Subsystem {
 
 	}
 
-	public void pegTarget() {
-		PixyPacket peg1 = null, peg2 = null;
-		try {
-			peg1 = pixy1.readPacket(1);
-		} catch (PixyException e) {
-			SmartDashboard.putString("PixyPeg1 Exception: ", e.toString());
-		}
-		try {
-			peg2 = pixy1.readPacket(1);
-		} catch (PixyException e) {
-			SmartDashboard.putString("PixyPeg2 Exception: ", e.toString());
-		}
-
-		if (peg1 != null) {
-			SmartDashboard.putString("PixyPeg1", peg1.toString());
-		}
-		if (peg2 != null) {
-			SmartDashboard.putString("PixyPeg2", peg2.toString());
-		}
-
-		SmartDashboard.putString("PixyPeg1", peg1.toString());
-		SmartDashboard.putString("PixyPeg2", peg2.toString());
-
-	}
-
+	
 	int leftBucket = 0;
 	int left = 0;
 	int rightBucket = 0;
@@ -222,39 +198,47 @@ public class Vision extends Subsystem {
 		return true;
 	}
 
-	public int getPegPostion() {
-		String numSeen = "BOTH";
-		if (isPegReadingReady()) {
-			if (left != 0 && right != 0) {
-				int leftavg = leftBucket / left;
-				int rightavg = rightBucket / right;
-				pegPosition = (leftavg + rightavg) / 2;
-
-			} else if (left == 0) {
-				pegPosition = rightBucket / right;
-				numSeen = "RIGHT";
-			} else {
-				pegPosition = leftBucket / left;
-				numSeen = "LEFT";
-			}
-			resetPegDetect();
-			SmartDashboard.putString("PegPosition", " pos: " + pegPosition + "  " + numSeen);
-			return pegPosition;
-		}
-		// No peg to see
-		return -1;
-	}
+//	public int getPegPostion() {
+//		String numSeen = "BOTH";
+//		if (isPegReadingReady()) {
+//			if (left != 0 && right != 0) {
+//				int leftavg = leftBucket / left;
+//				int rightavg = rightBucket / right;
+//				pegPosition = (leftavg + rightavg) / 2;
+//
+//			} else if (left == 0) {
+//				pegPosition = rightBucket / right;
+//				numSeen = "RIGHT";
+//			} else {
+//				pegPosition = leftBucket / left;
+//				numSeen = "LEFT";
+//			}
+//			resetPegDetect();
+//			SmartDashboard.putString("PegPosition", " pos: " + pegPosition + "  " + numSeen);
+//			return pegPosition;
+//		}
+//		// No peg to see
+//		return -1;
+//	}
 
 	public void resetPegDetect() {
 		leftBucket = rightBucket = left = right = 0;
 	}
 
-	public void getPegPositionSecondTry() {
+	public PixyPacket[] getPegPosition() {
 		PixyPacket[] blocks = pixy1.readBlocks();
 		SmartDashboard.putBoolean("Peg Blocks Array is null", blocks == null);
 		if (blocks == null)
-			return;
+			return null;
 		SmartDashboard.putString("Peg Block 0", (blocks[0] == null) ? "null" : blocks[0].toString());
 		SmartDashboard.putString("Peg Block 1", (blocks[1] == null) ? "null" : blocks[1].toString());
+		return blocks;
+	}
+	
+	public GearTarget getGearTarget(){
+		PixyPacket[] packets = getPegPosition();
+		if (packets == null || (packets[0] == null && packets[1] == null))
+			return null;
+		return new GearTarget(packets[0], packets[1]);
 	}
 }
