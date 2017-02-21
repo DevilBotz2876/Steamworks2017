@@ -67,8 +67,12 @@ public class DriveControl extends Command {
 //		(Robot.driveTrain.getMaxRpm() - rampConstant) * Robot.oi.getRightX()) * (sensitivity + .15);
 		rightX = Robot.oi.getRightX();
 		if (Math.abs(rightX) < .05) {
-			if (!Robot.driveTrain.isStraightRunning()) Robot.driveTrain.startStraight();
-			Robot.driveTrain.velocityTankStraightJoysticks(leftY);
+			if(!Robot.driveTrain.isTurnRunning() && !Robot.driveTrain.isDistanceRunning()){
+				if (!Robot.driveTrain.isStraightRunning()) Robot.driveTrain.startStraight();
+				Robot.driveTrain.velocityTankStraightJoysticks(leftY);
+				
+			}
+			
 		} else {
 			if (Robot.driveTrain.isStraightRunning()) Robot.driveTrain.stopStraight();
 			Robot.driveTrain.stopTurn();

@@ -59,7 +59,7 @@ public class OI {
 	public JoystickButton aButton;
 	public JoystickButton rightBumper;
 	public JoystickButton startButton;
-	public JoystickButton selectButton;
+//	public JoystickButton bButton;
 	public JoystickButton lBumper;
 	public JoystickButton yButton;
 
@@ -67,7 +67,7 @@ public class OI {
 
 		controller = new Joystick(0);
 
-		bButton = new JoystickButton(controller, 2);
+//		bButton = new JoystickButton(controller, 2);
 		// Hey.. button 2 is free!
 
 		xButton = new JoystickButton(controller, 3);
@@ -85,7 +85,7 @@ public class OI {
 		startButton = new JoystickButton(controller, 8);
 		startButton.whileHeld(new ClimberStart());
 
-		selectButton = new JoystickButton(controller, 7);
+		bButton = new JoystickButton(controller, 2);
 //		selectButton.whenPressed(new InverseDrive());
 
 		// SmartDashboard Buttons

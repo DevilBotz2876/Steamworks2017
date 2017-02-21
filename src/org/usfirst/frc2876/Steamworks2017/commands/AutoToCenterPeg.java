@@ -26,7 +26,8 @@ public class AutoToCenterPeg extends Command {
 	int counter;
 
 	public AutoToCenterPeg() {
-
+        // This is suppose to turn to the peg
+		// TODO - rename this class
 		requires(Robot.driveTrain);
 		requires(Robot.vision);
 	}
@@ -35,17 +36,18 @@ public class AutoToCenterPeg extends Command {
 	protected void initialize() {
 		counter = 0;
 		RobotMap.driveTrainLightSpike.set(Value.kForward);
-		GearTarget t = Robot.vision.getGearTarget();
-		if (t == null) {
+//		GearTarget t = Robot.vision.getGearTarget();
 //			SmartDashboard.putString("Gear Target is", "null");
-		} else {
 //			SmartDashboard.putString("Gear Target", t.toString());
 //			SmartDashboard.putString("Gear Target is", "ok");
-			for(int i = 0; i<100 || Robot.driveTrain.isTurnRunning(); i++){
-				Robot.driveTrain.startTurn(t.angle());
-				SmartDashboard.putString("TurnPID", Robot.driveTrain.isTurnRunning() ? "We gucci" : "nah");
+			for(int i = 0; i < 10; i++){
+				GearTarget t = Robot.vision.getGearTarget();
+				if (t != null){ 
+					Robot.driveTrain.startTurn(t.angle());
+					SmartDashboard.putString("Gear Target t", t.toString());
+					break;
+				}
 			}
-		}
 	}
 
 	// Called repeatedly when this Command is scheduled to run

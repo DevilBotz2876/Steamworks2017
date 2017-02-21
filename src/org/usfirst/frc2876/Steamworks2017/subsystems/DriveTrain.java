@@ -113,11 +113,11 @@ public class DriveTrain extends Subsystem {
 		distanceController.setOutputRange(-MAX_RPM, MAX_RPM);
 		distanceController.setAbsoluteTolerance(kDistanceTolerance);
 
-		turnController = new PIDController(15, 0, 0, navx, new PIDOutput() {
+		turnController = new PIDController(20, 0, 0, navx, new PIDOutput() {
 			public void pidWrite(double output) {
 				SmartDashboard.putNumber("TurnPid Output", output);
 
-				double minMove = 400.0f;
+				double minMove = 500.0f;
 				output = minRpm(output, minMove);
 
 				leftMaster.set(-output);
@@ -191,10 +191,10 @@ public class DriveTrain extends Subsystem {
 	private double minRpm(double inputRpm, double minRpm) {
 		double outputRpm = inputRpm;
 		if (Math.abs(inputRpm) < minRpm) {
-			if (inputRpm < 0) {
-				inputRpm = -minRpm;
-			} else if (inputRpm > 0) {
-				inputRpm = minRpm;
+			if (outputRpm < 0) {
+				outputRpm = -minRpm;
+			} else if (outputRpm > 0) {
+				outputRpm = minRpm;
 			}
 		}
 		return outputRpm;
@@ -263,7 +263,7 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public boolean toggleInverseDrive() {
-		boolean buttonPressed = Robot.oi.selectButton.get();
+		boolean buttonPressed = Robot.oi.bButton.get();
 		if (buttonPressed && toggleHelp) {
 			toggleInverseDrive = !toggleInverseDrive;
 		}
