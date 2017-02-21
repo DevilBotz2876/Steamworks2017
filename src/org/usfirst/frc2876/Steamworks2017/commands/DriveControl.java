@@ -11,14 +11,16 @@
 package org.usfirst.frc2876.Steamworks2017.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc2876.Steamworks2017.Robot;
 
 /**
  *
  */
 public class DriveControl extends Command {
-	double rampConstant = .75;
-	double sensitivity = 1;
+	double rampConstant = .75 * Robot.driveTrain.getMaxRpm();
+	double sensitivity = .2;
 	double leftY;
 	double rightX;
 
@@ -42,26 +44,43 @@ public class DriveControl extends Command {
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		Robot.driveTrain.setVelocityMode();
+		Robot.driveTrain.startStraight();
+
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (Robot.driveTrain.toggleInverseDrive() == false) {
+		if (!Robot.driveTrain.toggleInverseDrive()) {
 			leftY = Robot.oi.getLeftY();
-			rightX = Robot.oi.getRightX();
-		} else if (Robot.driveTrain.toggleInverseDrive()) {
+			
+			
+//			leftY = (rampConstant * Math.pow(Robot.oi.getLeftY(), 3) +
+//					(Robot.driveTrain.getMaxRpm() - rampConstant) * Robot.oi.getLeftY()) * sensitivity;
+		} else {
 			leftY = Robot.oi.getLeftY() * -1;
-			rightX = Robot.oi.getRightX() * -1;
+			
+//			leftY = ((rampConstant * Math.pow(Robot.oi.getLeftY(), 3) +
+//					(Robot.driveTrain.getMaxRpm() - rampConstant) * Robot.oi.getLeftY()) * sensitivity) * -1;
+//			
 		}
-		// double leftY = (rampConstant * Math.pow(Robot.oi.getLeftY(), 3) +
-		// (1 - rampConstant) * Robot.oi.getLeftY()) * sensitivity;
-		// double rightX = (rampConstant * Math.pow(Robot.oi.getRightX(), 3) +
-		// (1 - rampConstant) * Robot.oi.getRightX()) * (sensitivity + .15);
-		// Robot.driveTrain.myRobot.arcadeDrive(leftY, rightX, true);
-		if (Robot.driveTrain.isTurnRunning() == false && Robot.driveTrain.isDistanceRunning() == false) {
+//		rightX = (rampConstant * Math.pow(Robot.oi.getRightX(), 3) +
+//		(Robot.driveTrain.getMaxRpm() - rampConstant) * Robot.oi.getRightX()) * (sensitivity + .15);
+		rightX = Robot.oi.getRightX();
+		if (Math.abs(rightX) < .05) {
+			if (!Robot.driveTrain.isStraightRunning()) Robot.driveTrain.startStraight();
+			Robot.driveTrain.velocityTankStraightJoysticks(leftY);
+		} else {
+			if (Robot.driveTrain.isStraightRunning()) Robot.driveTrain.stopStraight();
+			Robot.driveTrain.stopTurn();
+			Robot.driveTrain.stopDistance();
 			Robot.driveTrain.setVelocityJoysticks(leftY, rightX);
 		}
-
+    	
+		
+		
+//		Robot.driveTrain.myRobot.arcadeDrive(leftY, rightX, true);
+		
+	
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

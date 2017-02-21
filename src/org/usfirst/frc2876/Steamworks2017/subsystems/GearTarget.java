@@ -7,6 +7,7 @@ public class GearTarget {
 	double avgArea;
 	double avgX;
 	double angle;
+	double distance;
 	
 	
 	final double TARGET_X = 160;
@@ -30,6 +31,7 @@ public class GearTarget {
 		avgArea = avgHeight * avgWidth;
 		avgX = (block1.X + block2.X) / 2;
 		angle = (avgX - TARGET_X) * DEGREES_PER_PIXEL;
+		distance = 106.83987509669 * Math.pow(.96060468112129, avgHeight);
 	}
 	
 
@@ -49,6 +51,7 @@ public class GearTarget {
 	" avgArea: " + avgArea +
 	" avgX: " + avgX +
 	" dpp: " + DEGREES_PER_PIXEL +
-	" angle: " + angle;
+	" angle: " + angle +
+	" distance: " + distance;
 	}
 }

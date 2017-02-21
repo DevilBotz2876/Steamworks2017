@@ -14,6 +14,7 @@ import org.usfirst.frc2876.Steamworks2017.commands.AutoDoNothing;
 import org.usfirst.frc2876.Steamworks2017.commands.AutoDriveDistance;
 import org.usfirst.frc2876.Steamworks2017.commands.AutoTurning;
 import org.usfirst.frc2876.Steamworks2017.commands.AutonomousCommand;
+import org.usfirst.frc2876.Steamworks2017.commands.CGCenterGear;
 import org.usfirst.frc2876.Steamworks2017.subsystems.Climber;
 import org.usfirst.frc2876.Steamworks2017.subsystems.DriveTrain;
 import org.usfirst.frc2876.Steamworks2017.subsystems.FuelTank;
@@ -106,6 +107,7 @@ public class Robot extends IterativeRobot {
 		autonomousCommand = (Command) autoChoose.getSelected();
 		if (autonomousCommand != null)
 			autonomousCommand.start();
+		RobotMap.driveTrainLightSpike.set(Value.kForward);
 	}
 
 	/**
@@ -125,9 +127,11 @@ public class Robot extends IterativeRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
+//		RobotMap.driveTrainLightSpike.set(Value.kForward);
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
 	}
+	
 
 	/**
 	 * This function is called periodically during operator control
@@ -142,7 +146,7 @@ public class Robot extends IterativeRobot {
 
 		// TODO: we need to move this out of here.. maybe put in in command that
 		// uses vision... ok to leave here while testing/practicing.
-		RobotMap.driveTrainLightSpike.set(Value.kForward);
+
 
 	}
 
@@ -160,6 +164,7 @@ public class Robot extends IterativeRobot {
 		autoChoose.addDefault("do nothing", new AutoDoNothing());
 		autoChoose.addObject("Auto Drive Forward", new AutoDriveDistance(10));
 		autoChoose.addObject("Auto Turn", new AutoTurning(90));
+		autoChoose.addObject("auto To center peg", new CGCenterGear());
 		SmartDashboard.putData("Autonomous", autoChoose);
 	}
 }

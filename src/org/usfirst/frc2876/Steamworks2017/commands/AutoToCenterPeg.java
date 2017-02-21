@@ -10,16 +10,20 @@
 
 package org.usfirst.frc2876.Steamworks2017.commands;
 
+import edu.wpi.first.wpilibj.Relay.Value;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc2876.Steamworks2017.Robot;
+import org.usfirst.frc2876.Steamworks2017.RobotMap;
 import org.usfirst.frc2876.Steamworks2017.subsystems.GearTarget;
 
 /**
  *
  */
 public class AutoToCenterPeg extends Command {
+	
+	int counter;
 
 	public AutoToCenterPeg() {
 
@@ -29,13 +33,18 @@ public class AutoToCenterPeg extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		counter = 0;
+		RobotMap.driveTrainLightSpike.set(Value.kForward);
 		GearTarget t = Robot.vision.getGearTarget();
 		if (t == null) {
-			SmartDashboard.putString("Gear Target is", "null");
+//			SmartDashboard.putString("Gear Target is", "null");
 		} else {
-			SmartDashboard.putString("Gear Target", t.toString());
-			SmartDashboard.putString("Gear Target is", "ok");
-			Robot.driveTrain.startTurn(t.angle());
+//			SmartDashboard.putString("Gear Target", t.toString());
+//			SmartDashboard.putString("Gear Target is", "ok");
+			for(int i = 0; i<100 || Robot.driveTrain.isTurnRunning(); i++){
+				Robot.driveTrain.startTurn(t.angle());
+				SmartDashboard.putString("TurnPID", Robot.driveTrain.isTurnRunning() ? "We gucci" : "nah");
+			}
 		}
 	}
 
@@ -43,7 +52,7 @@ public class AutoToCenterPeg extends Command {
 	protected void execute() {
 		GearTarget t = Robot.vision.getGearTarget();
 		if (t == null) {
-			SmartDashboard.putString("GTExecStatus", "null");
+			SmartDashboard.putString("GTExecStatus", "null " + ++counter);
 		} else {
 			SmartDashboard.putString("GTExec", t.toString());
 			SmartDashboard.putString("GTExecStatus", "ok");

@@ -5,9 +5,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class CGCenterGearThenShoot extends CommandGroup {
+public class CGCenterGear extends CommandGroup {
 
-    public CGCenterGearThenShoot() {
+    public CGCenterGear() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -24,7 +24,7 @@ public class CGCenterGearThenShoot extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	
-    	    
+//    	addSequential(new AutoDriveStraightDistance(50));
+    	addSequential(new AutoToCenterPeg());
     }
 }

@@ -76,7 +76,6 @@ public class DriveTrain extends Subsystem {
 		myRobot.setInvertedMotor(MotorType.kFrontRight, true);
 		myRobot.setInvertedMotor(MotorType.kRearRight, true);
 		myRobot.setInvertedMotor(MotorType.kFrontLeft, false);
-
 		// for slave mode
 		frontLeftTalon.changeControlMode(CANTalon.TalonControlMode.Follower);
 		frontLeftTalon.set(rearLeftTalon.getDeviceID());
@@ -103,7 +102,7 @@ public class DriveTrain extends Subsystem {
 		});
 		straightController.setOutputRange(-MAX_RPM, MAX_RPM);
 
-		distanceController = new PIDController(10, 0, 0, 10, new AvgEncoder(), new PIDOutput() {
+		distanceController = new PIDController(40, 0, 0, 10, new AvgEncoder(), new PIDOutput() {
 			public void pidWrite(double output) {
 				SmartDashboard.putNumber("DistancePid Output", output);
 				// Don't output any values to the talons to make robot move
@@ -264,12 +263,14 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public boolean toggleInverseDrive() {
-		if (Robot.oi.selectButton.get() && toggleHelp) {
+		boolean buttonPressed = Robot.oi.selectButton.get();
+		if (buttonPressed && toggleHelp) {
 			toggleInverseDrive = !toggleInverseDrive;
 		}
-		toggleHelp = !Robot.oi.selectButton.get();
+//		leftMaster.setInverted(toggleInverseDrive);
+//		rightMaster.setInverted(toggleInverseDrive);
+		toggleHelp = !buttonPressed;
 		return toggleInverseDrive;
-
 	}
 
 	// Start the distance PID. Turn off turn PID when starting distance. Zero
@@ -315,6 +316,10 @@ public class DriveTrain extends Subsystem {
 
 	public boolean isTurnRunning() {
 		return turnController.isEnabled();
+	}
+	
+	public boolean isStraightRunning() {
+		return straightController.isEnabled();
 	}
 
 	public boolean isTurnDone() {
@@ -376,6 +381,9 @@ public class DriveTrain extends Subsystem {
 		SmartDashboard.putNumber("Right distance", r);
 		SmartDashboard.putNumber("Average distance", av);
 		return av;
+	}
+	public double getMaxRpm(){
+		return MAX_RPM;
 	}
 
 	// Create a class inside a class(no idea what this is in Java terminology)
