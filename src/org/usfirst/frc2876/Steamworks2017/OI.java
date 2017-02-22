@@ -59,7 +59,6 @@ public class OI {
 	public JoystickButton aButton;
 	public JoystickButton rightBumper;
 	public JoystickButton startButton;
-//	public JoystickButton bButton;
 	public JoystickButton lBumper;
 	public JoystickButton yButton;
 
@@ -76,8 +75,8 @@ public class OI {
 		leftStickButton = new JoystickButton(controller, 9);
 		leftStickButton.whileHeld(new IntakeStart());
 
-//		aButton = new JoystickButton(controller, 1);
-//		aButton.whenPressed(new IntakeStop());
+		aButton = new JoystickButton(controller, 1);
+		aButton.whenPressed(new AutoToCenterPeg());
 
 		yButton = new JoystickButton(controller, 4);
 		yButton.whileHeld(new ShooterStart());
@@ -90,16 +89,22 @@ public class OI {
 
 		// SmartDashboard Buttons
 		SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
+
 		SmartDashboard.putData("ShooterStart", new ShooterStart());
-		SmartDashboard.putData("ClimberStart", new ClimberStart());
-		SmartDashboard.putData("ClimberStop", new ClimberStop());
-		SmartDashboard.putData("IntakeStart", new IntakeStart());
-		SmartDashboard.putData("IntakeStop", new IntakeStop());
-		SmartDashboard.putData("AutoAlignToShoot", new AutoAlignToShoot());
-		SmartDashboard.putData("AutoShoot", new AutoShoot());
+		SmartDashboard.putData("ShooterIdle", new ShooterIdle());
+		SmartDashboard.putData("ShootBall", new ShootBall());
 
 		SmartDashboard.putData("Fuel Tank Start", new FuelTankStart());
-		SmartDashboard.putData("Fuel Tank Other Way", new FuelTankStop());
+		SmartDashboard.putData("Fuel Tank Stop", new FuelTankStop());
+		
+		SmartDashboard.putData("IntakeStart", new IntakeStart());
+		SmartDashboard.putData("IntakeStop", new IntakeStop());
+		
+		SmartDashboard.putData("ClimberStart", new ClimberStart());
+		SmartDashboard.putData("ClimberReverse", new ClimberReverse());	
+		SmartDashboard.putData("ClimberStop", new ClimberStop());	
+		
+		SmartDashboard.putData("AutoShoot", new AutoShoot());
 
 		SmartDashboard.putData("AutoTurn", new AutoTurning(90));
 		SmartDashboard.putData("DriveStraight", new DriveStraight());

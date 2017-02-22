@@ -19,7 +19,6 @@ import com.ctre.CANTalon.TalonControlMode;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
@@ -66,7 +65,13 @@ public class DriveTrain extends Subsystem {
 	public PIDController turnController;
 	public AHRS navx;
 	private CANTalon rightMaster, leftMaster;
-
+	
+	public void initDefaultCommand() {
+		setDefaultCommand(new DriveControl());
+		//setDefaultCommand(new DriveControlSimple());
+		//setDefaultCommand(new DriveControlPercentVbus());
+		
+	}
 	public DriveTrain() {
 		navx = new AHRS(SPI.Port.kMXP);
 
@@ -83,6 +88,8 @@ public class DriveTrain extends Subsystem {
 		frontRightTalon.set(rearRightTalon.getDeviceID());
 		leftMaster = rearLeftTalon;
 		rightMaster = rearRightTalon;
+		leftMaster.setF(.3271);
+		rightMaster.setF(.3271);
 
 		// TODO: do we need this?
 		rightMaster.reverseOutput(true);
@@ -138,24 +145,26 @@ public class DriveTrain extends Subsystem {
 
 	}
 
-	public void initDefaultCommand() {
-		setDefaultCommand(new DriveControl());
-	}
+
 
 	public void updateSmartDashboard() {
+		
+		SmartDashboard.putData("NavX", navx);
+		SmartDashboard.putNumber("navX angle", navx.getAngle());
+		
 		// SmartDashboard.putBoolean("is navX connected", navx.isConnected());
 		// SmartDashboard.putBoolean("is navX calibrating",
 		// navx.isCalibrating());
-		SmartDashboard.putData("NavX", navx);
 		// SmartDashboard.putBoolean("is navX moving", navx.isMoving());
 		// SmartDashboard.putBoolean("is navX rotating", navx.isRotating());
-		SmartDashboard.putNumber("navX angle", navx.getAngle());
 		// SmartDashboard.putNumber("navX pitch", navx.getPitch());
 		// SmartDashboard.putNumber("navX yaw", navx.getYaw());
 		// SmartDashboard.putNumber("navX roll", navx.getRoll());
 		// SmartDashboard.putNumber("navX WorldX", navx.getWorldLinearAccelX());
 		// SmartDashboard.putNumber("navX WorldY", navx.getWorldLinearAccelY());
+		
 		// SmartDashboard.putNumber("Accel RoboRio", accel.getAcceleration());
+		
 		// SmartDashboard.putNumber("frontLeftValue", frontLeftTalon.get());
 		// SmartDashboard.putNumber("frontRightValue", frontRightTalon.get());
 		// SmartDashboard.putNumber("rearLeftValue", rearLeftTalon.get());
@@ -177,11 +186,6 @@ public class DriveTrain extends Subsystem {
 		SmartDashboard.putNumber("Left Encoder Value", leftMaster.getEncPosition());
 		SmartDashboard.putNumber("Right Encoder Value", rightMaster.getEncPosition());
 	}
-
-	// public void setSpeed(double speed) {
-	// myRobot.arcadeDrive(speed, -straightController.get(), true);
-	// SmartDashboard.putNumber("Speed", speed);
-	// }
 
 	// Sometimes the robot is commanded to move but the rpm given is too small
 	// to make the robot actually move(inertia, friction, ...). Use this method
