@@ -59,7 +59,7 @@ public class AutoDriveDistance extends Command {
 		}
 
 		if (Robot.driveTrain.isTurnRunning() == false) {
-			Robot.driveTrain.setVelocityJoysticks(leftY, rightX);
+			Robot.driveTrain.setVelocityArcadeJoysticks(leftY, rightX);
 		}
     }
     	

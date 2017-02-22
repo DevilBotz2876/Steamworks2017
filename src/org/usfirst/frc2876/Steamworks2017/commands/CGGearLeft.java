@@ -5,9 +5,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class CGCenterGear extends CommandGroup {
+public class CGGearLeft extends CommandGroup {
 
-    public CGCenterGear() {
+    public CGGearLeft() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());

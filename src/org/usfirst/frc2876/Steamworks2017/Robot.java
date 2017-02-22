@@ -14,7 +14,7 @@ import org.usfirst.frc2876.Steamworks2017.commands.AutoDoNothing;
 import org.usfirst.frc2876.Steamworks2017.commands.AutoDriveDistance;
 import org.usfirst.frc2876.Steamworks2017.commands.AutoTurning;
 import org.usfirst.frc2876.Steamworks2017.commands.AutonomousCommand;
-import org.usfirst.frc2876.Steamworks2017.commands.CGCenterGear;
+import org.usfirst.frc2876.Steamworks2017.commands.CGGearCenter;
 import org.usfirst.frc2876.Steamworks2017.subsystems.Climber;
 import org.usfirst.frc2876.Steamworks2017.subsystems.DriveTrain;
 import org.usfirst.frc2876.Steamworks2017.subsystems.Intake;
@@ -104,7 +104,11 @@ public class Robot extends IterativeRobot {
 		autonomousCommand = (Command) autoChoose.getSelected();
 		if (autonomousCommand != null)
 			autonomousCommand.start();
+		
+		// TODO: move to commands that use pixy
 		RobotMap.driveTrainLightSpike.set(Value.kForward);
+		
+		Robot.driveTrain.stopAllPID();
 	}
 
 	/**
@@ -127,6 +131,8 @@ public class Robot extends IterativeRobot {
 //		RobotMap.driveTrainLightSpike.set(Value.kForward);
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
+		
+		Robot.driveTrain.stopAllPID();
 	}
 	
 
@@ -161,7 +167,7 @@ public class Robot extends IterativeRobot {
 		autoChoose.addDefault("do nothing", new AutoDoNothing());
 		autoChoose.addObject("Auto Drive Forward", new AutoDriveDistance(10));
 		autoChoose.addObject("Auto Turn", new AutoTurning(90));
-		autoChoose.addObject("auto To center peg", new CGCenterGear());
+		autoChoose.addObject("auto To center peg", new CGGearCenter());
 		SmartDashboard.putData("Autonomous", autoChoose);
 	}
 }

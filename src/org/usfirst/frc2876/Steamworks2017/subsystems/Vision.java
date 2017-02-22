@@ -107,4 +107,14 @@ public class Vision extends Subsystem {
 			return null;
 		return new GearTarget(packets[0], packets[1]);
 	}
+
+	public GearTarget getGearTargetFiltered() {
+		for (int i = 0; i < 5; i++) {
+			GearTarget t = getGearTarget();
+			if (t != null) {
+				return t;
+			}
+		}
+		return null;
+	}
 }

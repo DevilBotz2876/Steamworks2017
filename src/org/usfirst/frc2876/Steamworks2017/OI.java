@@ -101,7 +101,6 @@ public class OI {
 		SmartDashboard.putData("IntakeStop", new IntakeStop());
 		
 		SmartDashboard.putData("ClimberStart", new ClimberStart());
-		SmartDashboard.putData("ClimberReverse", new ClimberReverse());	
 		SmartDashboard.putData("ClimberStop", new ClimberStop());	
 		
 		SmartDashboard.putData("AutoShoot", new AutoShoot());
