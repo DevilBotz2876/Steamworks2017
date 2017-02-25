@@ -79,7 +79,7 @@ public class OI {
 		aButton.whenPressed(new AutoToCenterPeg());
 
 		yButton = new JoystickButton(controller, 4);
-		yButton.whileHeld(new ShooterStart());
+		yButton.whileHeld(new ShootBall());
 
 		startButton = new JoystickButton(controller, 8);
 		startButton.whileHeld(new ClimberStart());
@@ -90,12 +90,8 @@ public class OI {
 		// SmartDashboard Buttons
 		SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
 
-		SmartDashboard.putData("ShooterStart", new ShooterStart());
 		SmartDashboard.putData("ShooterIdle", new ShooterIdle());
 		SmartDashboard.putData("ShootBall", new ShootBall());
-
-		SmartDashboard.putData("Fuel Tank Start", new FuelTankStart());
-		SmartDashboard.putData("Fuel Tank Stop", new FuelTankStop());
 		
 		SmartDashboard.putData("IntakeStart", new IntakeStart());
 		SmartDashboard.putData("IntakeStop", new IntakeStop());
