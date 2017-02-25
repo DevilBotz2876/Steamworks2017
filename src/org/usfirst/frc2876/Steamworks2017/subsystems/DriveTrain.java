@@ -204,8 +204,8 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void velocityTankStraightJoysticks(double speed) {
-		//double straight = straightController.get();
-		double straight = 0;
+		double straight = straightController.get();
+//		double straight = 0;
 		rearRightTalon.set((speed * MAX_RPM) + straight);
 		rearLeftTalon.set((speed * MAX_RPM) - straight);
 	}
@@ -229,6 +229,12 @@ public class DriveTrain extends Subsystem {
 		rightMaster.set(r);
 		leftMaster.set(l);
 	}
+	
+	public void velocityDistance() {
+		double distance = -distanceController.get();
+		rightMaster.set(distance);
+		leftMaster.set(distance);
+	}
 
 	public void setVelocityMode() {
 		rightMaster.changeControlMode(TalonControlMode.Speed);
@@ -247,27 +253,6 @@ public class DriveTrain extends Subsystem {
 	// anything else. This is just driving the robot in velocity closed loop
 	// mode.
 	public void setVelocityArcadeJoysticks(double speed, double rotate) {
-		if (speed > 0.0) {
-			if (rotate > 0.0) {
-				rearLeftTalon.set((speed - rotate) * MAX_RPM);
-				rearRightTalon.set(Math.max(speed, rotate) * MAX_RPM);
-			} else {
-				rearLeftTalon.set(Math.max(speed, -rotate) * MAX_RPM);
-				rearRightTalon.set((speed + rotate) * MAX_RPM);
-			}
-		} else {
-			if (rotate > 0.0) {
-				rearLeftTalon.set(-Math.max(-speed, rotate) * MAX_RPM);
-				rearRightTalon.set((speed + rotate) * MAX_RPM);
-			} else {
-				rearLeftTalon.set((speed - rotate) * MAX_RPM);
-				rearRightTalon.set(-Math.max(-speed, -rotate) * MAX_RPM);
-			}
-		}
-	}
-	
-	public void setVelocityArcadeJoysticksStraight(double speed, double rotate) {
-		double straight = straightController.get();
 		if (speed > 0.0) {
 			if (rotate > 0.0) {
 				rearLeftTalon.set((speed - rotate) * MAX_RPM);
