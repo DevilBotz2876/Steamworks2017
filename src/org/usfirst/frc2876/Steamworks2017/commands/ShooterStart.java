@@ -37,7 +37,7 @@ public class ShooterStart extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.shooter.shooterStart();
+    	Robot.shooter.shooterStart(Robot.shooter.MAX_RPM);
     }
 
     // Called repeatedly when this Command is scheduled to run

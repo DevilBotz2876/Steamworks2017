@@ -53,5 +53,6 @@ public class Climber extends Subsystem {
     public void climberStop(){
     	climberTalon.set(0);
     }
+   
 }
 

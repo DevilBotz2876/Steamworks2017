@@ -12,12 +12,11 @@ public class FuelTankStop extends Command {
     public FuelTankStop() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.fuelTank);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.fuelTank.otherWay();
+    	Robot.shooter.loaderStop();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -26,12 +25,11 @@ public class FuelTankStop extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.fuelTank.agitatorStop();
     }
 
     // Called when another command which requires one or more of the same

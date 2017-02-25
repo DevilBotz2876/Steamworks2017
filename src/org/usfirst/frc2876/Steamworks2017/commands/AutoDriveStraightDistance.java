@@ -7,41 +7,39 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class AutoAdjustToLift extends Command {
-
-    public AutoAdjustToLift() {
+public class AutoDriveStraightDistance extends Command {
+	private double m_distance;
+    public AutoDriveStraightDistance(double distance) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.driveTrain);
+    	m_distance = -distance;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.driveTrain.startStraight();
+    	Robot.driveTrain.startDistance(m_distance);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	//adjusts angle to have the robot straight towards the gear lift.
-    	if(Robot.vision.packet1[0].X < 159)
-    		Robot.driveTrain.myRobot.setLeftRightMotorOutputs(-.3, -.3);
-    	else if(Robot.vision.packet1[0].X > 161)   
-    		Robot.driveTrain.myRobot.setLeftRightMotorOutputs(.3, .3);
-    	//if signature's avg width and height < set average move straight forward
-    	
+    	Robot.driveTrain.velocityDistanceStraight();  	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
-        //return if we met the set average of the set width and height for when we are close enough for the gear to be placed
+    	return Robot.driveTrain.isDistanceDone();
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.driveTrain.stopStraight();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }

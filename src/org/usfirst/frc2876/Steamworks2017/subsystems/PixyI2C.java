@@ -13,13 +13,6 @@ public class PixyI2C {
 	PixyException pExc;
 	String print;
 
-	public PixyI2C() {
-		// pixy = new I2C(port, 0x54);
-		// packets = new PixyPacket[7];
-		// pExc = new PixyException(print);
-		// values = new PixyPacket();
-	}
-
 	public PixyI2C(String id, I2C argPixy, PixyPacket[] argPixyPacket, PixyException argPixyException,
 			PixyPacket argValues) {
 		pixy = argPixy;
@@ -143,10 +136,10 @@ public class PixyI2C {
 		if (block.Signature <= 0 || block.Signature > 7) {
 			return null;
 		}
-		block.X = cvt(data[2], data[1]);
-		block.Y = cvt(data[4], data[3]);
-		block.Width = cvt(data[6], data[5]);
-		block.Height = cvt(data[8], data[7]);
+		block.X = cvt(data[3], data[2]);
+		block.Y = cvt(data[5], data[4]);
+		block.Width = cvt(data[7], data[6]);
+		block.Height = cvt(data[9], data[8]);
 
 		int sum = block.Signature + block.X + block.Y + block.Width + block.Height;
 		if (sum != checksum) {
