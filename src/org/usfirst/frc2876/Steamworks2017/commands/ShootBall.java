@@ -22,6 +22,12 @@ import org.usfirst.frc2876.Steamworks2017.Robot;
 public class ShootBall extends Command {
 
 	double startTime;
+		boolean hasLoaderStarted = false;
+		boolean isLoaderInversed = false;
+		final double LOADER_WAIT = 1.0;
+		final int LOADER_INVERSE_INTERVAL = 2; //time between inverting. Used in modulus, so it needs to be an int
+		final double LOADER_INVERSE_DURATION = .25;
+		double loaderInverseStart;
 
     public ShootBall() {
     	
@@ -32,14 +38,25 @@ public class ShootBall extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.shooter.shooterStart(Robot.shooter.MAX_RPM);
-    	startTime = Timer.getFPGATimestamp();
+    	startTime = Timer.getFPGATimestamp();	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	double currentTime = Timer.getFPGATimestamp();
-    	if((currentTime - startTime) > 3){
+    	double currentDiff = currentTime - startTime;
+    	if(currentDiff > LOADER_WAIT && !hasLoaderStarted){
     		Robot.shooter.loaderStart();
+    		hasLoaderStarted = true;
+    	}
+    	if(!isLoaderInversed && (int)currentDiff % LOADER_INVERSE_INTERVAL == 0){
+    		Robot.shooter.loaderInverse();
+    		isLoaderInversed = true;
+    		loaderInverseStart = currentTime;
+    	}
+    	if(isLoaderInversed && currentTime - loaderInverseStart > LOADER_INVERSE_DURATION) {    		
+			Robot.shooter.loaderStart();
+			isLoaderInversed = false;
     	}
     }
 
