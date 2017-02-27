@@ -11,6 +11,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class CGShootThenMobility extends CommandGroup {
 
 	public CGShootThenMobility() {
+		int angleFromShot = 60;
+		double turningValue = .5; //like from a joystick (-1 to 1)
+		
 		// Add Commands here:
 		// e.g. addSequential(new Command1());
 		// addSequential(new Command2());
@@ -31,11 +34,11 @@ public class CGShootThenMobility extends CommandGroup {
 //		if (Robot.IS_TURN_PID_FUNCTIONAL) addSequential(new AutoTurning(0/*Shooter Pixy Angle Once existant, */));
 		addSequential(new AutoShoot());
 		if (Robot.IS_TURN_PID_FUNCTIONAL) {
-			addSequential(new AutoTurning(60));
+			addSequential(new AutoTurning(angleFromShot));
 		} else {
 			double startTime = Timer.getFPGATimestamp();
 			while (Timer.getFPGATimestamp() - startTime > 1){
-				Robot.driveTrain.myRobot.arcadeDrive(0, .5);
+				Robot.driveTrain.myRobot.arcadeDrive(0, turningValue);
 			}
 			Robot.driveTrain.myRobot.arcadeDrive(0, 0);
 		}
