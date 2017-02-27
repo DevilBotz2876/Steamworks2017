@@ -21,7 +21,7 @@ import org.usfirst.frc2876.Steamworks2017.Robot;
  */
 public class ShootBall extends Command {
 
-		double startTime;
+	double startTime;
 
     public ShootBall() {
     	
