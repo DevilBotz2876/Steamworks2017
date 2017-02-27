@@ -85,7 +85,8 @@ public class OI {
 		startButton.whileHeld(new ClimberStart());
 
 		bButton = new JoystickButton(controller, 2);
-//		selectButton.whenPressed(new InverseDrive());
+		bButton.whenPressed(new PixyAimToBoiler());
+		
 
 		// SmartDashboard Buttons
 		SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
