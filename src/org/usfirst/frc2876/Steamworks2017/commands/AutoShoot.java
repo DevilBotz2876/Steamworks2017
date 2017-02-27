@@ -11,8 +11,10 @@
 
 package org.usfirst.frc2876.Steamworks2017.commands;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.Relay.Value;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc2876.Steamworks2017.Robot;
+import org.usfirst.frc2876.Steamworks2017.RobotMap;
 
 /**
  *
@@ -37,7 +39,9 @@ public class AutoShoot extends Command {
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		Robot.shooter.shooterStart(Robot.shooter.MAX_RPM);
-		startTime = Timer.getFPGATimestamp();	
+		startTime = Timer.getFPGATimestamp();
+		RobotMap.driveTrainLightSpike.set(Value.kForward);
+
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -68,6 +72,7 @@ public class AutoShoot extends Command {
 	protected void end() {
 		Robot.shooter.loaderStop();
 		Robot.shooter.shooterStop();
+		RobotMap.driveTrainLightSpike.set(Value.kOff);
 	}
 
 	// Called when another command which requires one or more of the same

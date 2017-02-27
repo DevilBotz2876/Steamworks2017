@@ -110,7 +110,7 @@ public class Robot extends IterativeRobot {
 			autonomousCommand.start();
 		
 		// TODO: move to commands that use pixy
-		RobotMap.driveTrainLightSpike.set(Value.kForward);
+//		RobotMap.driveTrainLightSpike.set(Value.kForward);
 		
 		Robot.driveTrain.stopAllPID();
 	}
