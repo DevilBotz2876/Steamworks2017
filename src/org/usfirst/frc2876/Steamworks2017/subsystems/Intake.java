@@ -48,7 +48,7 @@ public class Intake extends Subsystem {
         // setDefaultCommand(new MySpecialCommand());
     }
     public void intakeStart(){
-    	intakeTalon.set(.65);
+    	intakeTalon.set(-.4);
     }
     public void intakeStop(){
     	intakeTalon.set(0);

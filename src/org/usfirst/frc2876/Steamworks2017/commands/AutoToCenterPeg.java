@@ -77,6 +77,9 @@ public class AutoToCenterPeg extends Command {
 			SmartDashboard.putString("Gear Target is", "ok");
 			
 		}
+		RobotMap.driveTrainLightSpike.set(Value.kOff);
+
+		
 	}
 
 	// Called when another command which requires one or more of the same

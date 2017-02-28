@@ -25,8 +25,8 @@ public class ShootBall extends Command {
 		boolean hasLoaderStarted = false;
 		boolean isLoaderInversed = false;
 		final double LOADER_WAIT = 1.0;
-		final int LOADER_INVERSE_INTERVAL = 2; //time between inverting. Used in modulus, so it needs to be an int
-		final double LOADER_INVERSE_DURATION = .25;
+		final int LOADER_INVERSE_INTERVAL = 5; //time between inverting. Used in modulus, so it needs to be an int
+		final double LOADER_INVERSE_DURATION = .1;
 		double loaderInverseStart;
 
     public ShootBall() {
