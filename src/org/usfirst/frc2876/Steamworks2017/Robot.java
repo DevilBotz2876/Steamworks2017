@@ -112,7 +112,7 @@ public class Robot extends IterativeRobot {
 		// TODO: move to commands that use pixy
 //		RobotMap.driveTrainLightSpike.set(Value.kForward);
 		
-		Robot.driveTrain.stopAllPID();
+		driveTrain.stopAllPID();
 	}
 
 	/**
@@ -136,7 +136,9 @@ public class Robot extends IterativeRobot {
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
 		
-		Robot.driveTrain.stopAllPID();
+		driveTrain.stopAllPID();
+		driveTrain.navx.reset();
+	
 	}
 	
 
