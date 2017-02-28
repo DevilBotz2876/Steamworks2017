@@ -56,54 +56,45 @@ public class DriveControl extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (!Robot.driveTrain.toggleInverseDrive()) {
-			// Forward is Intake
-			leftY = Robot.oi.getLeftY();
-			if(leftY > TOLERANCE_FOR_JOYSTICK){
-				Robot.intake.intakeStart();
-				startTime = Timer.getFPGATimestamp();
-			} else {
-				if (Timer.getFPGATimestamp() - startTime > INTAKE_OVERLAP_TIME) 
-					Robot.intake.intakeStop();
-			}
-
-			// leftY = (rampConstant * Math.pow(Robot.oi.getLeftY(), 3) +
-			// (Robot.driveTrain.getMaxRpm() - rampConstant) *
-			// Robot.oi.getLeftY()) * sensitivity;
-		} else {
-			// Forward is Gear
-			leftY = Robot.oi.getLeftY() * -1;
-			if(leftY < -TOLERANCE_FOR_JOYSTICK){
-				Robot.intake.intakeStart();
-				startTime = Timer.getFPGATimestamp();
-			} else {
-				if (Timer.getFPGATimestamp() - startTime > INTAKE_OVERLAP_TIME) 
-					Robot.intake.intakeStop(); 
-			}
-
-			// leftY = ((rampConstant * Math.pow(Robot.oi.getLeftY(), 3) +
-			// (Robot.driveTrain.getMaxRpm() - rampConstant) *
-			// Robot.oi.getLeftY()) * sensitivity) * -1;
-			//
-		}
-		// rightX = (rampConstant * Math.pow(Robot.oi.getRightX(), 3) +
-		// (Robot.driveTrain.getMaxRpm() - rampConstant) * Robot.oi.getRightX())
-		// * (sensitivity + .15);
 		rightX = Robot.oi.getRightX();
+		leftY = Robot.oi.getLeftY();
 
-		if (Math.abs(rightX) < TOLERANCE_FOR_JOYSTICK && Math.abs(leftY) > TOLERANCE_FOR_JOYSTICK) {
-			if (!Robot.driveTrain.isTurnRunning()) {
+		if (Math.abs(leftY) > TOLERANCE_FOR_JOYSTICK){
+			Robot.driveTrain.stopDistance();
+			Robot.driveTrain.stopTurn();
+			if (!Robot.driveTrain.toggleInverseDrive()) {
+				if(leftY > TOLERANCE_FOR_JOYSTICK){
+					Robot.intake.intakeStart();
+					startTime = Timer.getFPGATimestamp();
+				} else {
+					if (Timer.getFPGATimestamp() - startTime > INTAKE_OVERLAP_TIME) {
+						Robot.intake.intakeStop();
+					}
+				}
+			} else {
+				if(leftY < -TOLERANCE_FOR_JOYSTICK){
+					Robot.intake.intakeStart();
+					startTime = Timer.getFPGATimestamp();
+				} else {
+					if (Timer.getFPGATimestamp() - startTime > INTAKE_OVERLAP_TIME){ 
+						Robot.intake.intakeStop();
+					}
+				}
+				leftY *= -1;
+			}
+			if (Math.abs(rightX) < TOLERANCE_FOR_JOYSTICK) {
 				if (!Robot.driveTrain.isStraightRunning()) {
 					Robot.driveTrain.startStraight();
 				}
 				Robot.driveTrain.velocityTankStraightJoysticks(leftY);
+			} else {
+				Robot.driveTrain.stopStraight();
+				Robot.driveTrain.setVelocityArcadeJoysticks(leftY, rightX);
 			}
-		} else {
-			Robot.driveTrain.stopStraight();
+		} else if (Math.abs(rightX) > TOLERANCE_FOR_JOYSTICK) {
+			Robot.driveTrain.stopAllPID();
 			Robot.driveTrain.setVelocityArcadeJoysticks(leftY, rightX);
 		}
-
-		// Robot.driveTrain.myRobot.arcadeDrive(leftY, rightX, true);
 
 	}
 
