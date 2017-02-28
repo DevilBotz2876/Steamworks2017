@@ -111,6 +111,7 @@ public class OI {
 		SmartDashboard.putData("Auto Drive Distance Straight", new AutoDriveStraightDistance(60));
 		SmartDashboard.putData("Auto To Center Peg", new AutoToCenterPeg());
 		SmartDashboard.putData("CGAutoExample", new CGAutoExample());
+		SmartDashboard.putData("AutoMobility", new AutoMobility());
 
 	}
 

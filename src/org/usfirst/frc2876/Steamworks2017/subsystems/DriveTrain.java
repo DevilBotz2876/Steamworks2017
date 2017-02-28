@@ -230,8 +230,8 @@ public class DriveTrain extends Subsystem {
 		leftMaster.set(l);
 	}
 	
-	public void velocityDistance() {
-		double distance = -distanceController.get();
+	public void velocityDistance(int direction) {
+		double distance = -direction * distanceController.get();
 		rightMaster.set(distance);
 		leftMaster.set(distance);
 	}
