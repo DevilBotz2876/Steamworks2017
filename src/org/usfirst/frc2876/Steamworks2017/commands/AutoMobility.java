@@ -15,7 +15,7 @@ public class AutoMobility extends Command {
     public AutoMobility() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.driveTrain);
+    	requires(Robot.driveTrain); 
     }
 
     // Called just before this Command runs the first time
@@ -25,7 +25,7 @@ public class AutoMobility extends Command {
     		Robot.driveTrain.startStraight();
     	}
     	if (Robot.IS_DISTANCE_PID_FUNCTIONAL) {
-    		Robot.driveTrain.startDistance(DISTANCE_IN_INCHES);
+    		Robot.driveTrain.startDistance(-DISTANCE_IN_INCHES);
     	} else {
         	startTime = Timer.getFPGATimestamp();
     	}
