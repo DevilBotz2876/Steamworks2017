@@ -83,7 +83,7 @@ public class DriveControl extends Command {
 				leftY *= -1;
 			}
 			if (Math.abs(rightX) < TOLERANCE_FOR_JOYSTICK) {
-				if (!Robot.driveTrain.isStraightRunning()) {
+				if (!Robot.driveTrain.isStraightRunning() && Robot.IS_STRAIGHT_PID_FUNCTIONAL) {
 					Robot.driveTrain.startStraight();
 				}
 				Robot.driveTrain.velocityTankStraightJoysticks(leftY);
