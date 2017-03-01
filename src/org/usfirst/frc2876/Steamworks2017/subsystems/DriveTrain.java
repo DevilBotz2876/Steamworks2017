@@ -119,7 +119,7 @@ public class DriveTrain extends Subsystem {
 		distanceController.setOutputRange(-MAX_RPM, MAX_RPM);
 		distanceController.setAbsoluteTolerance(kDistanceTolerance);
 
-		turnController = new PIDController(20, 0, 0, navx, new PIDOutput() {
+		turnController = new PIDController(10, 0, 0, -3, navx, new PIDOutput() {
 			public void pidWrite(double output) {
 				SmartDashboard.putNumber("TurnPid Output", output);
 

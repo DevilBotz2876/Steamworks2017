@@ -15,6 +15,7 @@ public class CGGearCenter extends CommandGroup {
 		addSequential(new AutoToCenterPeg());
 		GearTarget t = Robot.vision.getGearTargetFiltered();
 		if (t != null) {
+//			addPar
 			addSequential(new AutoDriveStraightDistance(t.distance()));
 		}
 	}

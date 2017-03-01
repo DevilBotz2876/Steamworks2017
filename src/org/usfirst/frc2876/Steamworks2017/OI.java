@@ -66,11 +66,10 @@ public class OI {
 
 		controller = new Joystick(0);
 
-//		bButton = new JoystickButton(controller, 2);
-		// Hey.. button 2 is free!
+
 
 		xButton = new JoystickButton(controller, 3);
-		// xButton.whileHeld(new ShooterStart());
+		 xButton.whileHeld(new AutoToCenterPeg());
 
 		leftStickButton = new JoystickButton(controller, 9);
 		leftStickButton.whileHeld(new IntakeStart());

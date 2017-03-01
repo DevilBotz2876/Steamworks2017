@@ -40,7 +40,7 @@ public class AutoToCenterPeg extends Command {
 //			SmartDashboard.putString("Gear Target is", "null");
 //			SmartDashboard.putString("Gear Target", t.toString());
 //			SmartDashboard.putString("Gear Target is", "ok");
-			for(int i = 0; i < 10; i++){
+			for(int i = 0; i < 100; i++){
 				GearTarget t = Robot.vision.getGearTarget();
 				if (t != null){ 
 					Robot.driveTrain.startTurn(t.angle());
@@ -77,7 +77,7 @@ public class AutoToCenterPeg extends Command {
 			SmartDashboard.putString("Gear Target is", "ok");
 			
 		}
-		RobotMap.driveTrainLightSpike.set(Value.kOff);
+//		RobotMap.driveTrainLightSpike.set(Value.kOff);
 
 		
 	}
