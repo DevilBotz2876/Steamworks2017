@@ -25,7 +25,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Shooter extends Subsystem {
 	
-	final double loaderSpeed = 0.35;
+	final double loaderSpeed = 0.8;
 	
 	public Shooter(){
 		talon.setFeedbackDevice(FeedbackDevice.QuadEncoder);		
