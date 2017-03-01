@@ -37,7 +37,7 @@ public class GearTarget {
 
 	public double distance() {
 		// return distance needed to drive to hang gear.
-		return 0;
+		return distance;
 	}
 	
 	public double angle() {
