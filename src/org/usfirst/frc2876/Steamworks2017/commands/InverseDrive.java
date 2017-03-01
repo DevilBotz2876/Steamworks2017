@@ -17,7 +17,7 @@ public class InverseDrive extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.driveTrain.toggleInverseDrive();
+//    	Robot.driveTrain.toggleInverseDrive();
     }
 
     // Called repeatedly when this Command is scheduled to run

@@ -64,6 +64,7 @@ public class DriveTrain extends Subsystem {
 	public PIDController turnController;
 	public AHRS navx;
 	private CANTalon rightMaster, leftMaster;
+	public boolean isStraightPIDFromDriveControl = false;
 	
 	public void initDefaultCommand() {
 		setDefaultCommand(new DriveControl());
@@ -272,16 +273,16 @@ public class DriveTrain extends Subsystem {
 		}
 	}
 
-	public boolean toggleInverseDrive() {
-		boolean buttonPressed = Robot.oi.bButton.get();
-		if (buttonPressed && toggleHelp) {
-			toggleInverseDrive = !toggleInverseDrive;
-		}
-//		leftMaster.setInverted(toggleInverseDrive);
-//		rightMaster.setInverted(toggleInverseDrive);
-		toggleHelp = !buttonPressed;
-		return toggleInverseDrive;
-	}
+//	public boolean toggleInverseDrive() {
+//		boolean buttonPressed = Robot.oi.bButton.get();
+//		if (buttonPressed && toggleHelp) {
+//			toggleInverseDrive = !toggleInverseDrive;
+//		}
+////		leftMaster.setInverted(toggleInverseDrive);
+////		rightMaster.setInverted(toggleInverseDrive);
+//		toggleHelp = buttonPressed;
+//		return toggleInverseDrive;
+//	}
 
 	// Start the distance PID. Turn off turn PID when starting distance. Zero
 	// out encoders. And then go go go!
@@ -344,12 +345,14 @@ public class DriveTrain extends Subsystem {
 		// navx.reset();
 	}
 
-	public void startStraight() {
+	public void startStraight(boolean fromDriveControl) {
+		isStraightPIDFromDriveControl = fromDriveControl;
 		// Don't need to reset navx angle to zero here. To drive straight we
 		// just need to pick whatever angle the robot is at when we start the
 		// PID controller.
 		stopTurn();
 		straightController.reset();
+		navx.reset();
 		straightController.setSetpoint(navx.getAngle());
 		straightController.enable();
 	}
@@ -360,6 +363,8 @@ public class DriveTrain extends Subsystem {
 		rightMaster.set(0);
 
 	}
+	
+	
 
 	public void stopAllPID() {
 		stopStraight();

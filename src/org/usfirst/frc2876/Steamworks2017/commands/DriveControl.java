@@ -50,7 +50,6 @@ public class DriveControl extends Command {
 	protected void initialize() {
 		Robot.driveTrain.setVelocityMode();
 		Robot.driveTrain.navx.reset();
-		Robot.driveTrain.startStraight();
 
 	}
 
@@ -62,8 +61,8 @@ public class DriveControl extends Command {
 		if (Math.abs(leftY) > TOLERANCE_FOR_JOYSTICK){
 			Robot.driveTrain.stopDistance();
 			Robot.driveTrain.stopTurn();
-			if (!Robot.driveTrain.toggleInverseDrive()) {
-				if(leftY > TOLERANCE_FOR_JOYSTICK){
+//			if (!Robot.driveTrain.toggleInverseDrive()) {
+				if(leftY < -TOLERANCE_FOR_JOYSTICK){
 					Robot.intake.intakeStart();
 					startTime = Timer.getFPGATimestamp();
 				} else {
@@ -71,20 +70,20 @@ public class DriveControl extends Command {
 						Robot.intake.intakeStop();
 					}
 				}
-			} else {
-				if(leftY < -TOLERANCE_FOR_JOYSTICK){
-					Robot.intake.intakeStart();
-					startTime = Timer.getFPGATimestamp();
-				} else {
-					if (Timer.getFPGATimestamp() - startTime > INTAKE_OVERLAP_TIME){ 
-						Robot.intake.intakeStop();
-					}
-				}
-				leftY *= -1;
-			}
+//			} else {
+//				if(leftY < -TOLERANCE_FOR_JOYSTICK){
+//					Robot.intake.intakeStart();
+//					startTime = Timer.getFPGATimestamp();
+//				} else {
+//					if (Timer.getFPGATimestamp() - startTime > INTAKE_OVERLAP_TIME){ 
+//						Robot.intake.intakeStop();
+//					}
+//				}
+//				leftY *= -1;
+//			}
 			if (Math.abs(rightX) < TOLERANCE_FOR_JOYSTICK) {
 				if (!Robot.driveTrain.isStraightRunning() && Robot.IS_STRAIGHT_PID_FUNCTIONAL) {
-					Robot.driveTrain.startStraight();
+					Robot.driveTrain.startStraight(true);
 				}
 				Robot.driveTrain.velocityTankStraightJoysticks(leftY);
 			} else {
@@ -94,10 +93,18 @@ public class DriveControl extends Command {
 		} else if (Math.abs(rightX) > TOLERANCE_FOR_JOYSTICK) {
 			Robot.driveTrain.stopAllPID();
 			Robot.driveTrain.setVelocityArcadeJoysticks(leftY, rightX);
+		} else {
+			if (Robot.driveTrain.isStraightPIDFromDriveControl){
+				Robot.driveTrain.stopStraight();
+			}
+			if (!Robot.driveTrain.isDistanceRunning() && !Robot.driveTrain.isStraightRunning()
+					&& !Robot.driveTrain.isTurnRunning()){
+				Robot.driveTrain.setVelocityArcadeJoysticks(0, 0);
+			}
 		}
 
 	}
-
+	
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
 		return false;

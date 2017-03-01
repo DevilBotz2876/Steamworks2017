@@ -18,20 +18,20 @@ public class DriveStraight extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.driveTrain.navx.reset();
-    	Robot.driveTrain.startStraight();
+    	Robot.driveTrain.startStraight(false);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	double rightX;
     	double leftY;
-    	if (Robot.driveTrain.toggleInverseDrive() == false) {
+//    	if (Robot.driveTrain.toggleInverseDrive() == false) {
 			leftY = Robot.oi.getLeftY();
 			rightX = Robot.oi.getRightX();
-		} else {
-			leftY = Robot.oi.getLeftY() * -1;
-			rightX = Robot.oi.getRightX() * -1;
-		}
+//		} else {
+//			leftY = Robot.oi.getLeftY() * -1;
+//			rightX = Robot.oi.getRightX() * -1;
+//		}
     	if (Robot.driveTrain.isTurnRunning() == false) {
 			Robot.driveTrain.velocityTankStraightJoysticks(leftY);
 		}
