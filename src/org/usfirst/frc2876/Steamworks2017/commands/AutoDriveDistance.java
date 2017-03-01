@@ -50,13 +50,13 @@ public class AutoDriveDistance extends Command {
     protected void execute() {
     	double rightX;
     	double leftY;
-    	if (Robot.driveTrain.toggleInverseDrive() == false) {
+//    	if (Robot.driveTrain.toggleInverseDrive() == false) {
 			leftY = Robot.oi.getLeftY();
 			rightX = Robot.oi.getRightX();
-		} else {
-			leftY = Robot.oi.getLeftY() * -1;
-			rightX = Robot.oi.getRightX() * -1;
-		}
+//		} else {
+//			leftY = Robot.oi.getLeftY() * -1;
+//			rightX = Robot.oi.getRightX() * -1;
+//		}
 
 		if (Robot.driveTrain.isTurnRunning() == false) {
 			Robot.driveTrain.setVelocityArcadeJoysticks(leftY, rightX);

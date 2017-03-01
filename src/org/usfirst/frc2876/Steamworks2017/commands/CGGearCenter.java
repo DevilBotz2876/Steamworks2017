@@ -9,13 +9,14 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class CGGearCenter extends CommandGroup {
+	final double DISTANCE_TO_RANGE = -96;
 
 	public CGGearCenter() {
-		addSequential(new AutoDriveStraightDistance(-96));
-		addSequential(new AutoToCenterPeg());
+		addSequential(new AutoDriveStraightDistance(DISTANCE_TO_RANGE));
 		GearTarget t = Robot.vision.getGearTargetFiltered();
 		if (t != null) {
-			addSequential(new AutoDriveStraightDistance(t.distance()));
+			addSequential(new AutoToCenterPeg());
+			addSequential(new AutoDriveStraightDistance(-t.distance()));
 		}
 	}
 }

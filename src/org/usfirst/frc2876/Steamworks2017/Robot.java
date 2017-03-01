@@ -52,9 +52,10 @@ public class Robot extends IterativeRobot {
 
 	public static Vision vision;
 	
-	public static final boolean IS_TURN_PID_FUNCTIONAL = false;
+	public static final boolean IS_TURN_PID_FUNCTIONAL = true;
 	public static final boolean IS_DISTANCE_PID_FUNCTIONAL = true;
-	public static final boolean IS_STRAIGHT_PID_FUNCTIONAL = false;
+	public static final boolean IS_STRAIGHT_PID_FUNCTIONAL = true;
+
 	// public SendableChooser<Command> autoChoose = new
 	// SendableChooser<Command>();
 	// public SendableChooser autoChoose = new SendableChooser();
@@ -110,10 +111,9 @@ public class Robot extends IterativeRobot {
 			autonomousCommand.start();
 		
 		// TODO: move to commands that use pixy
-		RobotMap.driveTrainLightSpike.set(Value.kForward);
+//		RobotMap.driveTrainLightSpike.set(Value.kForward);
 		
-		Robot.driveTrain.stopAllPID();
-		
+		driveTrain.stopAllPID();
 		
 	}
 
@@ -138,7 +138,9 @@ public class Robot extends IterativeRobot {
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
 		
-		Robot.driveTrain.stopAllPID();
+		driveTrain.stopAllPID();
+		driveTrain.navx.reset();
+	
 	}
 	
 

@@ -22,7 +22,7 @@ public class AutoMobility extends Command {
     protected void initialize() {
     	Robot.driveTrain.stopAllPID();
     	if (Robot.IS_STRAIGHT_PID_FUNCTIONAL) {
-    		Robot.driveTrain.startStraight();
+    		Robot.driveTrain.startStraight(false);
     	}
     	if (Robot.IS_DISTANCE_PID_FUNCTIONAL) {
     		Robot.driveTrain.startDistance(-DISTANCE_IN_INCHES);
