@@ -22,11 +22,11 @@ import org.usfirst.frc2876.Steamworks2017.subsystems.GearTarget;
  *
  */
 public class AutoToCenterPeg extends Command {
-	
+
 	int counter;
 
 	public AutoToCenterPeg() {
-        // This is suppose to turn to the peg
+		// This is suppose to turn to the peg
 		// TODO - rename this class
 		requires(Robot.driveTrain);
 		requires(Robot.vision);
@@ -36,18 +36,18 @@ public class AutoToCenterPeg extends Command {
 	protected void initialize() {
 		counter = 0;
 		RobotMap.driveTrainLightSpike.set(Value.kForward);
-//		GearTarget t = Robot.vision.getGearTarget();
-//			SmartDashboard.putString("Gear Target is", "null");
-//			SmartDashboard.putString("Gear Target", t.toString());
-//			SmartDashboard.putString("Gear Target is", "ok");
-			for(int i = 0; i < 100; i++){
-				GearTarget t = Robot.vision.getGearTarget();
-				if (t != null){ 
-					Robot.driveTrain.startTurn(t.angle());
-					SmartDashboard.putString("Gear Target t", t.toString());
-					break;
-				}
+		//		GearTarget t = Robot.vision.getGearTarget();
+		//			SmartDashboard.putString("Gear Target is", "null");
+		//			SmartDashboard.putString("Gear Target", t.toString());
+		//			SmartDashboard.putString("Gear Target is", "ok");
+		for(int i = 0; i < 10; i++){
+			GearTarget t = Robot.vision.getGearTarget();
+			if (t != null){ 
+				Robot.driveTrain.startTurn(t.angle());
+				SmartDashboard.putString("Gear Target t", t.toString());
+				break;
 			}
+		}
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -75,11 +75,8 @@ public class AutoToCenterPeg extends Command {
 		} else {
 			SmartDashboard.putString("Gear Target", t.toString());
 			SmartDashboard.putString("Gear Target is", "ok");
-			
-		}
-//		RobotMap.driveTrainLightSpike.set(Value.kOff);
 
-		
+		}
 	}
 
 	// Called when another command which requires one or more of the same

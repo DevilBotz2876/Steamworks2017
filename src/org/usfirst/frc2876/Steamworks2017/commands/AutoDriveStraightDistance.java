@@ -18,7 +18,7 @@ public class AutoDriveStraightDistance extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.driveTrain.startStraight();
+    	Robot.driveTrain.startStraight(false);
     	Robot.driveTrain.startDistance(m_distance);
     }
 
