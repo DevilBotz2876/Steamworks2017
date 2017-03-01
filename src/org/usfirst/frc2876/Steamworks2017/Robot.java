@@ -52,9 +52,10 @@ public class Robot extends IterativeRobot {
 
 	public static Vision vision;
 	
-	public static final boolean IS_TURN_PID_FUNCTIONAL = false;
-	public static final boolean IS_DISTANCE_PID_FUNCTIONAL = false;
+	public static final boolean IS_TURN_PID_FUNCTIONAL = true;
+	public static final boolean IS_DISTANCE_PID_FUNCTIONAL = true;
 	public static final boolean IS_STRAIGHT_PID_FUNCTIONAL = true;
+
 	// public SendableChooser<Command> autoChoose = new
 	// SendableChooser<Command>();
 	// public SendableChooser autoChoose = new SendableChooser();
@@ -113,6 +114,7 @@ public class Robot extends IterativeRobot {
 //		RobotMap.driveTrainLightSpike.set(Value.kForward);
 		
 		driveTrain.stopAllPID();
+		
 	}
 
 	/**

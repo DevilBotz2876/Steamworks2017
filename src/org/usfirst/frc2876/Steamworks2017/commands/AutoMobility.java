@@ -9,13 +9,13 @@ public class AutoMobility extends Command {
 	
 	private final int DISTANCE_IN_INCHES = 132;
 	private final double SPEED = .8; //speed out of 1
-	private final double INCHES_PER_SECOND = SPEED * 48; //TODO change this value after testing
+	private final double INCHES_PER_SECOND = SPEED * 125.0; //TODO change this value after testing
 	private double startTime;
 	
     public AutoMobility() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.driveTrain);
+    	requires(Robot.driveTrain); 
     }
 
     // Called just before this Command runs the first time
@@ -25,7 +25,7 @@ public class AutoMobility extends Command {
     		Robot.driveTrain.startStraight(false);
     	}
     	if (Robot.IS_DISTANCE_PID_FUNCTIONAL) {
-    		Robot.driveTrain.startDistance(DISTANCE_IN_INCHES);
+    		Robot.driveTrain.startDistance(-DISTANCE_IN_INCHES);
     	} else {
         	startTime = Timer.getFPGATimestamp();
     	}
@@ -38,7 +38,7 @@ public class AutoMobility extends Command {
     	} else if (Robot.IS_STRAIGHT_PID_FUNCTIONAL) {
     		Robot.driveTrain.velocityTankStraightJoysticks(SPEED);
     	} else if (Robot.IS_DISTANCE_PID_FUNCTIONAL) {
-    		Robot.driveTrain.velocityDistance();
+    		Robot.driveTrain.velocityDistance(-1);
     	} else {
     		Robot.driveTrain.setVelocityArcadeJoysticks(SPEED, 0);
     	}
