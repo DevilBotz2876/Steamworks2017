@@ -175,8 +175,7 @@ public class Robot extends IterativeRobot {
 	public void autoPicker() {
 		autoChoose = new SendableChooser();
 		autoChoose.addDefault("do nothing", new AutoDoNothing());
-		autoChoose.addObject("Auto Drive Forward", new AutoDriveDistance(10));
-		autoChoose.addObject("Auto Turn", new AutoTurning(90));
+		autoChoose.addObject("Auto Drive Forward", new AutoDriveDistance(80));
 		autoChoose.addObject("auto To center peg", new CGAutoGearCenter());
 		SmartDashboard.putData("Autonomous", autoChoose);
 	}

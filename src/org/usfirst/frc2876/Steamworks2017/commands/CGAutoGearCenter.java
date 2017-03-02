@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class CGAutoGearCenter extends CommandGroup {
-	final double DISTANCE_TO_RANGE = -96;
+	final double DISTANCE_TO_RANGE = 54;
 
 	public CGAutoGearCenter() {
 		addSequential(new AutoDriveStraightDistance(DISTANCE_TO_RANGE));

@@ -109,7 +109,7 @@ public class Vision extends Subsystem {
 	}
 
 	public GearTarget getGearTargetFiltered() {
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 10; i++) {
 			GearTarget t = getGearTarget();
 			if (t != null) {
 				return t;
