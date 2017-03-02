@@ -105,8 +105,11 @@ public class OI {
 		SmartDashboard.putData("Drive Distance", new AutoDriveDistance(60));
 		SmartDashboard.putData("Auto Drive Distance Straight", new AutoDriveStraightDistance(60));
 		SmartDashboard.putData("Auto To Center Peg", new AutoToCenterPeg());
-		SmartDashboard.putData("CG Gear Center", new CGGearCenter());
+		SmartDashboard.putData("CG Gear Center", new CGAutoGearCenter());
 		SmartDashboard.putData("AutoMobility", new AutoMobility());
+		SmartDashboard.putData("CG Go To Peg", new CGGoToPeg());
+
+		
 
 	}
 
