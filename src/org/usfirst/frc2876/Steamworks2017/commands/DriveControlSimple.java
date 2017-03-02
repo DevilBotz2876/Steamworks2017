@@ -46,7 +46,7 @@ public class DriveControlSimple extends Command {
 //		}
 
 		rightX = Robot.oi.getRightX();
-		Robot.driveTrain.setVelocityArcadeJoysticks(leftY, rightX);
+		Robot.driveTrain.setVelocityArcadeJoysticksGain(leftY, rightX);
 		// Robot.driveTrain.myRobot.arcadeDrive(leftY, rightX, false);
 
 	}
