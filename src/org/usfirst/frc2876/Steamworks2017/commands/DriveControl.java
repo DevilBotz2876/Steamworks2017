@@ -63,11 +63,11 @@ public class DriveControl extends Command {
 			Robot.driveTrain.stopTurn();
 //			if (!Robot.driveTrain.toggleInverseDrive()) {
 				if(leftY < -TOLERANCE_FOR_JOYSTICK){
-					Robot.intake.intakeStart();
+//					Robot.intake.intakeStart();
 					startTime = Timer.getFPGATimestamp();
 				} else {
 					if (Timer.getFPGATimestamp() - startTime > INTAKE_OVERLAP_TIME) {
-						Robot.intake.intakeStop();
+//						Robot.intake.intakeStop();
 					}
 				}
 //			} else {
