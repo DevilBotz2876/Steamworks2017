@@ -88,18 +88,18 @@ public class DriveControl extends Command {
 				Robot.driveTrain.velocityTankStraightJoysticks(leftY);
 			} else {
 				Robot.driveTrain.stopStraight();
-				Robot.driveTrain.setVelocityArcadeJoysticks(leftY, rightX);
+				Robot.driveTrain.setVelocityArcadeJoysticksGain(leftY, rightX);
 			}
 		} else if (Math.abs(rightX) > TOLERANCE_FOR_JOYSTICK) {
 			Robot.driveTrain.stopAllPID();
-			Robot.driveTrain.setVelocityArcadeJoysticks(leftY, rightX);
+			Robot.driveTrain.setVelocityArcadeJoysticksGain(leftY, rightX);
 		} else {
 			if (Robot.driveTrain.isStraightPIDFromDriveControl){
 				Robot.driveTrain.stopStraight();
 			}
 			if (!Robot.driveTrain.isDistanceRunning() && !Robot.driveTrain.isStraightRunning()
 					&& !Robot.driveTrain.isTurnRunning()){
-				Robot.driveTrain.setVelocityArcadeJoysticks(0, 0);
+				Robot.driveTrain.setVelocityArcadeJoysticksGain(0, 0);
 			}
 		}
 
