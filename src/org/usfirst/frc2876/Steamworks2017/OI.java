@@ -66,10 +66,8 @@ public class OI {
 
 		controller = new Joystick(0);
 
-
-
 		xButton = new JoystickButton(controller, 3);
-		 xButton.whileHeld(new AutoToCenterPeg());
+		xButton.whileHeld(new AutoToCenterPeg());
 
 		leftStickButton = new JoystickButton(controller, 9);
 		leftStickButton.whileHeld(new IntakeStart());
@@ -84,20 +82,20 @@ public class OI {
 		startButton.whileHeld(new ClimberStart());
 
 		bButton = new JoystickButton(controller, 2);
-//		selectButton.whenPressed(new InverseDrive());
+		// selectButton.whenPressed(new InverseDrive());
 
 		// SmartDashboard Buttons
 		SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
 
 		SmartDashboard.putData("ShooterIdle", new ShooterIdle());
 		SmartDashboard.putData("ShootBall", new ShootBall());
-		
+
 		SmartDashboard.putData("IntakeStart", new IntakeStart());
 		SmartDashboard.putData("IntakeStop", new IntakeStop());
-		
+
 		SmartDashboard.putData("ClimberStart", new ClimberStart());
-		SmartDashboard.putData("ClimberStop", new ClimberStop());	
-		
+		SmartDashboard.putData("ClimberStop", new ClimberStop());
+
 		SmartDashboard.putData("AutoShoot", new AutoShoot());
 
 		SmartDashboard.putData("AutoTurn", new AutoTurning(90));
@@ -108,8 +106,6 @@ public class OI {
 		SmartDashboard.putData("CG Gear Center", new CGAutoGearCenter());
 		SmartDashboard.putData("AutoMobility", new AutoMobility());
 		SmartDashboard.putData("CG Go To Peg", new CGGoToPeg());
-
-		
 
 	}
 

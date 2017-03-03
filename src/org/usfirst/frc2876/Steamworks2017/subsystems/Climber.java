@@ -23,21 +23,23 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Climber extends Subsystem {
 
 	CANTalon climberTalon = RobotMap.climberClimberTalon;
-	CANTalon slaveTalon = RobotMap.climberSlaveTalon;
-	
-//	slaveTalon.changeControlMode(CANTalon.TalonControlMode.Follower);
-//	slaveTalon.set(climberTalon.getDeviceID());
+//	CANTalon slaveTalon = RobotMap.climberSlaveTalon;
 
+	public Climber() {
+//		slaveTalon.changeControlMode(CANTalon.TalonControlMode.Follower);
+//		slaveTalon.set(climberTalon.getDeviceID());
+	}
 
-    public void initDefaultCommand() {
+	public void initDefaultCommand() {
+		setDefaultCommand(new ClimberStop());
+	}
 
-    	setDefaultCommand(new ClimberStop());
-    }
-    public void climberStart(){
-    	climberTalon.set(-1);
-    }
-    public void climberStop(){
-    	climberTalon.set(0);
-    }
-   
+	public void climberStart() {
+		climberTalon.set(-1);
+	}
+
+	public void climberStop() {
+		climberTalon.set(0);
+	}
+
 }
