@@ -5,9 +5,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class CGGearLeft extends CommandGroup {
+public class CGGearRight extends CommandGroup {
 
-    public CGGearLeft() {
+    public CGGearRight() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -24,11 +24,9 @@ public class CGGearLeft extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-//    	addSequential(new AutoDriveStraightDistance(50));
     	addSequential(new AutoDriveStraightDistance(80));
-    	addSequential(new AutoTurning(30));
+    	addSequential(new AutoTurning(-30));
     	addSequential(new AutoDriveStraightDistance(30));
 //    	addSequential(new AutoDriveStraightDistance(-6));
-
     }
 }

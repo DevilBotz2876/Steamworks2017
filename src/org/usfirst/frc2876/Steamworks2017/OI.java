@@ -59,31 +59,35 @@ public class OI {
 	public JoystickButton aButton;
 	public JoystickButton rightBumper;
 	public JoystickButton startButton;
-	public JoystickButton lBumper;
+	public JoystickButton leftBumper;
 	public JoystickButton yButton;
 
 	public OI() {
 
 		controller = new Joystick(0);
 
-		xButton = new JoystickButton(controller, 3);
-		xButton.whileHeld(new AutoToCenterPeg());
+//		leftStickButton = new JoystickButton(controller, 9);
+//		leftStickButton.whileHeld(new IntakeStart());
 
-		leftStickButton = new JoystickButton(controller, 9);
-		leftStickButton.whileHeld(new IntakeStart());
-
-		aButton = new JoystickButton(controller, 1);
-		aButton.whenPressed(new AutoToCenterPeg());
+//		aButton = new JoystickButton(controller, 1);
+//		aButton.whenPressed(new AutoToCenterPeg());
 
 		yButton = new JoystickButton(controller, 4);
 		yButton.whileHeld(new ShootBall());
 
-		startButton = new JoystickButton(controller, 8);
-		startButton.whileHeld(new ClimberStart());
-
 		bButton = new JoystickButton(controller, 2);
+		bButton.whileHeld(new AgitatorReverse());
 		// selectButton.whenPressed(new InverseDrive());
-
+		
+		leftBumper = new JoystickButton(controller, 5);
+		leftBumper.whileHeld(new ClimberStart(false));
+		
+		xButton = new JoystickButton(controller, 3);
+		xButton.whileHeld(new UpdateForPegAngle());
+		
+		rightBumper = new JoystickButton(controller, 6);
+		rightBumper.whileHeld(new ClimberStart(true));
+		
 		// SmartDashboard Buttons
 		SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
 
@@ -93,20 +97,21 @@ public class OI {
 		SmartDashboard.putData("IntakeStart", new IntakeStart());
 		SmartDashboard.putData("IntakeStop", new IntakeStop());
 
-		SmartDashboard.putData("ClimberStart", new ClimberStart());
+		SmartDashboard.putData("ClimberStart", new ClimberStart(true));
 		SmartDashboard.putData("ClimberStop", new ClimberStop());
 
 		SmartDashboard.putData("AutoShoot", new AutoShoot());
 
 		SmartDashboard.putData("AutoTurn", new AutoTurning(90));
-		SmartDashboard.putData("DriveStraight", new DriveStraight());
+		//SmartDashboard.putData("DriveStraight", new DriveStraight());
 		SmartDashboard.putData("Drive Distance", new AutoDriveDistance(60));
 		SmartDashboard.putData("Auto Drive Distance Straight", new AutoDriveStraightDistance(60));
+		SmartDashboard.putData("CGAutoExample", new CGAutoExample());
 		SmartDashboard.putData("Auto To Center Peg", new AutoToCenterPeg());
 		SmartDashboard.putData("CG Gear Center", new CGAutoGearCenter());
 		SmartDashboard.putData("AutoMobility", new AutoMobility());
 		SmartDashboard.putData("CG Go To Peg", new CGGoToPeg());
-
+		SmartDashboard.putData("Agitator Run", new AgitatorRun());
 	}
 
 	public Joystick getController() {

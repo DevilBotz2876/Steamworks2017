@@ -79,7 +79,7 @@ public class DriveControl extends Command {
 //						Robot.intake.intakeStop();
 //					}
 //				}
-//				leftY *= -1;
+//				leftY *= -1;s
 //			}
 			if (Math.abs(rightX) < TOLERANCE_FOR_JOYSTICK) {
 				if (!Robot.driveTrain.isStraightRunning() && Robot.IS_STRAIGHT_PID_FUNCTIONAL) {
