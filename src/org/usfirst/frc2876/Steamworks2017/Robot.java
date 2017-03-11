@@ -11,14 +11,13 @@
 package org.usfirst.frc2876.Steamworks2017;
 
 import org.usfirst.frc2876.Steamworks2017.commands.AutoDoNothing;
-import org.usfirst.frc2876.Steamworks2017.commands.AutoDriveDistance;
 import org.usfirst.frc2876.Steamworks2017.commands.AutoDriveStraightDistance;
-import org.usfirst.frc2876.Steamworks2017.commands.AutoTurning;
 import org.usfirst.frc2876.Steamworks2017.commands.AutonomousCommand;
 import org.usfirst.frc2876.Steamworks2017.commands.CGAutoExample;
-import org.usfirst.frc2876.Steamworks2017.commands.CGAutoGearCenter;
 import org.usfirst.frc2876.Steamworks2017.commands.CGGearLeft;
 import org.usfirst.frc2876.Steamworks2017.commands.CGGearRight;
+import org.usfirst.frc2876.Steamworks2017.commands.CGPegNoTurnPid;
+import org.usfirst.frc2876.Steamworks2017.commands.CGShootThenMobility;
 import org.usfirst.frc2876.Steamworks2017.subsystems.Climber;
 import org.usfirst.frc2876.Steamworks2017.subsystems.DriveTrain;
 import org.usfirst.frc2876.Steamworks2017.subsystems.Intake;
@@ -183,9 +182,11 @@ public class Robot extends IterativeRobot {
 		autoChoose.addObject("Do Nothing", new AutoDoNothing());
 		autoChoose.addObject("Auto To Center Peg", new CGAutoExample());
 		autoChoose.addObject("Auto To Right Peg", new CGGearRight());
-		autoChoose.addObject("Auto To Leftt Peg", new CGGearLeft());
-		
-
+		autoChoose.addObject("Auto To Left Peg", new CGGearLeft());
+		autoChoose.addObject("Auto To Left Peg (No PID)", new CGPegNoTurnPid(false));
+		autoChoose.addObject("Auto To Right Peg (No PID)", new CGPegNoTurnPid(true));
+		autoChoose.addObject("Auto Red Side Shoot + Mobility", new CGShootThenMobility(false));
+		autoChoose.addObject("Auto Blue Side Shoot + Mobility", new CGShootThenMobility(true));
 
 		SmartDashboard.putData("Autonomous", autoChoose);
 	}

@@ -28,10 +28,10 @@ public class AutoShoot extends Command {
 	final int LOADER_INVERSE_INTERVAL = 2; //time between inverting. Used in modulus, so it needs to be an int
 	final double LOADER_INVERSE_DURATION = .25;
 	double loaderInverseStart;
-	final double TIME_SPENT_SHOOTING = 8.0;
+	double duration;
 
-	public AutoShoot() {
-
+	public AutoShoot(double shootDuration) {
+		duration = shootDuration;
 		requires(Robot.shooter);
 
 	}
@@ -65,7 +65,7 @@ public class AutoShoot extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return (Timer.getFPGATimestamp() - startTime > TIME_SPENT_SHOOTING);
+		return (Timer.getFPGATimestamp() - startTime > duration);
 	}
 
 	// Called once after isFinished returns true

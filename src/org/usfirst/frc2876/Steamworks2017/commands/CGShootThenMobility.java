@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class CGShootThenMobility extends CommandGroup {
 
-	public CGShootThenMobility() {
+	public CGShootThenMobility(boolean isRightSide) {
 		int angleFromShot = 60;
 		double turningValue = .5; //like from a joystick (-1 to 1)
 		
@@ -32,16 +32,18 @@ public class CGShootThenMobility extends CommandGroup {
 		// arm.
 //		TODO once we have functional pixy shooting software, uncomment below and try out with proper angle value
 //		if (Robot.IS_TURN_PID_FUNCTIONAL) addSequential(new AutoTurning(0/*Shooter Pixy Angle Once existant, */));
-		addSequential(new AutoShoot());
-		if (Robot.IS_TURN_PID_FUNCTIONAL) {
-			addSequential(new AutoTurning(angleFromShot));
-		} else {
-			double startTime = Timer.getFPGATimestamp();
-			while (Timer.getFPGATimestamp() - startTime > 1){
-				Robot.driveTrain.myRobot.arcadeDrive(0, turningValue);
-			}
-			Robot.driveTrain.myRobot.arcadeDrive(0, 0);
-		}
+		addSequential(new AutoShoot(8.0));
+//		if (Robot.IS_TURN_PID_FUNCTIONAL) {
+//			addSequential(new AutoTurning(angleFromShot));
+//		} else {
+//			double startTime = Timer.getFPGATimestamp();
+//			while (Timer.getFPGATimestamp() - startTime > 1){
+//				Robot.driveTrain.myRobot.arcadeDrive(0, turningValue);
+//			}
+//			Robot.driveTrain.myRobot.arcadeDrive(0, 0);
+//		}
+		double distanceBetweenWheels = 26;
+		Robot.driveTrain.turnSide(isRightSide, Math.PI * distanceBetweenWheels / 3.0);
 		addSequential(new AutoMobility());
 	}
 }

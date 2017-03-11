@@ -100,7 +100,7 @@ public class OI {
 		SmartDashboard.putData("ClimberStart", new ClimberStart(true));
 		SmartDashboard.putData("ClimberStop", new ClimberStop());
 
-		SmartDashboard.putData("AutoShoot", new AutoShoot());
+//		SmartDashboard.putData("AutoShoot", new AutoShoot());
 
 		SmartDashboard.putData("AutoTurn", new AutoTurning(90));
 		//SmartDashboard.putData("DriveStraight", new DriveStraight());

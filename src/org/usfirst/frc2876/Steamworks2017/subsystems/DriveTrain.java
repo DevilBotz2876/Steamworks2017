@@ -28,6 +28,7 @@ import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -309,6 +310,27 @@ public class DriveTrain extends Subsystem {
 				rearRightTalon.set(-Math.max(-speed, -rotate) * MAX_RPM);
 			}
 		}
+	}
+	
+	public void turnSide(boolean isRightSide, double distance){
+		double startTime = Timer.getFPGATimestamp();
+		double startingEncoderValue = nativeToInches(leftMaster.getEncPosition());
+		double distanceInInches = nativeToInches(distance);
+		if (isRightSide) {
+			rightMaster.set(.5);
+			while(Timer.getFPGATimestamp() < startTime + 3.0 
+					&& distanceInInches < nativeToInches(leftMaster.getEncPosition()) - startingEncoderValue){}
+			rightMaster.set(0);
+		} else {
+			leftMaster.set(.5);
+			while(Timer.getFPGATimestamp() < startTime + 3.0 
+					&& distanceInInches < nativeToInches(leftMaster.getEncPosition()) - startingEncoderValue){}
+			leftMaster.set(0);
+		}
+	}
+	
+public void turnRightSide(double distance){
+		
 	}
 
 //	public boolean toggleInverseDrive() {

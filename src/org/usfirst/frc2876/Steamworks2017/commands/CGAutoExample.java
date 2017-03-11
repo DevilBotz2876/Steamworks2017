@@ -11,7 +11,7 @@ public class CGAutoExample extends CommandGroup {
 	public CGAutoExample() {
 		//addSequential(new AutoDriveStraightDistance(42));
 		//addSequential(new AutoDriveStraightDistance(20));
-		addSequential(new AutoDriveStraightDistance(72));
+		addSequential(new AutoDriveStraightDistance(76));
 //		addSequential(new TimedCommand(2));
 //		addSequential(new AutoDriveStraightDistance(-30));
 		
