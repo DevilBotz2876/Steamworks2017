@@ -109,7 +109,7 @@ public class OI {
 		SmartDashboard.putData("Center Gear Auto", new CGAutoExample());
 		SmartDashboard.putData("Auto To Center Peg", new AutoToCenterPeg());
 //		SmartDashboard.putData("Left Gear Auto", new CGGearLeft());
-		SmartDashboard.putData("Red Alliance Right Gear Auto", new CGSideGear(36, -40, 82, true));
+		SmartDashboard.putData("Red Alliance Right Gear Auto", new CGSideGear(36, -40, 82, true, 50));
 //		SmartDashboard.putData("CG Gear Center", new CGAutoGearCenter());
 		SmartDashboard.putData("AutoMobility", new AutoMobility());
 //		SmartDashboard.putData("CG Go To Peg", new CGGoToPeg());

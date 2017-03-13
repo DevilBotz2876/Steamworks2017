@@ -182,11 +182,13 @@ public class Robot extends IterativeRobot {
 		int redRightTurn = -40;
 		int redRightSecond = 82;
 		boolean redRightShoot = true;
+		double percentDistanceLeft = 50;
 		
 		int redLeftFirst = 36;
 		int redLeftTurn = -40;
 		int redLeftSecond = 82;
 		boolean redLeftShoot = false;
+		
 		
 		int blueRightFirst = 36;
 		int blueRightTurn = -40;
@@ -198,14 +200,15 @@ public class Robot extends IterativeRobot {
 		int blueLeftSecond = 82;
 		boolean blueLeftShoot = true;
 		
+		
 		autoChoose = new SendableChooser<Command>();
 		autoChoose.addDefault("Auto Drive Forward", new AutoDriveStraightDistance(80));
 		autoChoose.addObject("Do Nothing", new AutoDoNothing());
 		autoChoose.addObject("Center Peg", new CGAutoExample());
-		autoChoose.addObject("RIGHT Peg RED Alliance", new CGSideGear(redRightFirst, redRightTurn, redRightSecond, redRightShoot));
-		autoChoose.addObject("LEFT Peg RED Alliance", new CGSideGear(redLeftFirst, redLeftTurn, redLeftSecond, redLeftShoot));
-		autoChoose.addObject("RIGHT Peg BLUE Alliance", new CGSideGear(blueRightFirst, blueRightTurn, blueRightSecond, blueRightShoot));
-		autoChoose.addObject("LEFT Peg BLUE Alliance", new CGSideGear(blueLeftFirst, blueLeftTurn, blueLeftSecond, blueLeftShoot));
+		autoChoose.addObject("RIGHT Peg RED Alliance", new CGSideGear(redRightFirst, redRightTurn, redRightSecond, redRightShoot, percentDistanceLeft));
+		autoChoose.addObject("LEFT Peg RED Alliance", new CGSideGear(redLeftFirst, redLeftTurn, redLeftSecond, redLeftShoot, percentDistanceLeft));
+		autoChoose.addObject("RIGHT Peg BLUE Alliance", new CGSideGear(blueRightFirst, blueRightTurn, blueRightSecond, blueRightShoot, percentDistanceLeft));
+		autoChoose.addObject("LEFT Peg BLUE Alliance", new CGSideGear(blueLeftFirst, blueLeftTurn, blueLeftSecond, blueLeftShoot, percentDistanceLeft));
 
 //		autoChoose.addObject("Auto To Left Peg", new CGGearLeft());
 //		autoChoose.addObject("Auto To Left Peg (No PID)", new CGPegNoTurnPid(false));

@@ -464,6 +464,15 @@ public void turnRightSide(double distance){
 		SmartDashboard.putNumber("Average distance", av);
 		return av;
 	}
+	
+	public double getDistancePercentLeftToGo() {
+		double leftToGo = Math.abs(getDistancePID().getError());
+		double setPoint = Math.abs(getDistancePID().getSetpoint());
+		double percentLeftToGo = leftToGo/setPoint*100;
+		return percentLeftToGo;
+		
+	}
+	
 	public double getMaxRpm(){
 		return MAX_RPM;
 	}

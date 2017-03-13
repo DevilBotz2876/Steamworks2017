@@ -38,10 +38,10 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class CGSideGear extends CommandGroup {
 
-    public CGSideGear(int initialDistance, int turnDegrees, int finalDistance, boolean shoot) {
-    	addSequential(new AutoDriveStraightDistance(initialDistance)); 	//RedRight = 36
-    	addSequential(new AutoTurning(turnDegrees));					//RedRight = -40
-    	addSequential(new AutoDriveStraightDistance(finalDistance));	//RedRight = 82
-    	if (shoot) addSequential(new ShootBall());						//RedRight = true
+    public CGSideGear(int initialDistance, int turnDegrees, int finalDistance, boolean shoot, double percentDistanceLeft) {
+    	addSequential(new AutoDriveStraightDistance(initialDistance)); 			//RedRight = 36
+    	addSequential(new AutoTurning(turnDegrees));							//RedRight = -40
+    	addParallel(new AutoDriveStraightDistance(finalDistance));	    		//RedRight = 82
+    	if (shoot) addParallel(new AutoShootBall(percentDistanceLeft));			//RedRight = true
     }
 }
