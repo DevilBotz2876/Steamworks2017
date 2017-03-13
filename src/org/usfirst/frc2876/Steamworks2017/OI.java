@@ -89,16 +89,16 @@ public class OI {
 		rightBumper.whileHeld(new ClimberStart(true));
 		
 		// SmartDashboard Buttons
-		SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
-
-		SmartDashboard.putData("ShooterIdle", new ShooterIdle());
-		SmartDashboard.putData("ShootBall", new ShootBall());
-
-		SmartDashboard.putData("IntakeStart", new IntakeStart());
-		SmartDashboard.putData("IntakeStop", new IntakeStop());
-
-		SmartDashboard.putData("ClimberStart", new ClimberStart(true));
-		SmartDashboard.putData("ClimberStop", new ClimberStop());
+//		SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
+//
+//		SmartDashboard.putData("ShooterIdle", new ShooterIdle());
+//		SmartDashboard.putData("ShootBall", new ShootBall());
+//
+//		SmartDashboard.putData("IntakeStart", new IntakeStart());
+//		SmartDashboard.putData("IntakeStop", new IntakeStop());
+//
+//		SmartDashboard.putData("ClimberStart", new ClimberStart(true));
+//		SmartDashboard.putData("ClimberStop", new ClimberStop());
 
 //		SmartDashboard.putData("AutoShoot", new AutoShoot());
 
@@ -106,11 +106,13 @@ public class OI {
 		//SmartDashboard.putData("DriveStraight", new DriveStraight());
 		SmartDashboard.putData("Drive Distance", new AutoDriveDistance(60));
 		SmartDashboard.putData("Auto Drive Distance Straight", new AutoDriveStraightDistance(60));
-		SmartDashboard.putData("CGAutoExample", new CGAutoExample());
+		SmartDashboard.putData("Center Gear Auto", new CGAutoExample());
 		SmartDashboard.putData("Auto To Center Peg", new AutoToCenterPeg());
-		SmartDashboard.putData("CG Gear Center", new CGAutoGearCenter());
+//		SmartDashboard.putData("Left Gear Auto", new CGGearLeft());
+		SmartDashboard.putData("Red Alliance Right Gear Auto", new CGSideGear(36, -40, 82, true));
+//		SmartDashboard.putData("CG Gear Center", new CGAutoGearCenter());
 		SmartDashboard.putData("AutoMobility", new AutoMobility());
-		SmartDashboard.putData("CG Go To Peg", new CGGoToPeg());
+//		SmartDashboard.putData("CG Go To Peg", new CGGoToPeg());
 		SmartDashboard.putData("Agitator Run", new AgitatorRun());
 	}
 

@@ -15,9 +15,10 @@ import org.usfirst.frc2876.Steamworks2017.commands.AutoDriveStraightDistance;
 import org.usfirst.frc2876.Steamworks2017.commands.AutonomousCommand;
 import org.usfirst.frc2876.Steamworks2017.commands.CGAutoExample;
 import org.usfirst.frc2876.Steamworks2017.commands.CGGearLeft;
-import org.usfirst.frc2876.Steamworks2017.commands.CGGearRight;
+//import org.usfirst.frc2876.Steamworks2017.commands.CGGearRight;
 import org.usfirst.frc2876.Steamworks2017.commands.CGPegNoTurnPid;
 import org.usfirst.frc2876.Steamworks2017.commands.CGShootThenMobility;
+import org.usfirst.frc2876.Steamworks2017.commands.CGSideGear;
 import org.usfirst.frc2876.Steamworks2017.subsystems.Climber;
 import org.usfirst.frc2876.Steamworks2017.subsystems.DriveTrain;
 import org.usfirst.frc2876.Steamworks2017.subsystems.Intake;
@@ -177,17 +178,41 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void autoPicker() {
+		int redRightFirst = 36;
+		int redRightTurn = -40;
+		int redRightSecond = 82;
+		boolean redRightShoot = true;
+		
+		int redLeftFirst = 36;
+		int redLeftTurn = -40;
+		int redLeftSecond = 82;
+		boolean redLeftShoot = false;
+		
+		int blueRightFirst = 36;
+		int blueRightTurn = -40;
+		int blueRightSecond = 82;
+		boolean blueRightShoot = false;
+		
+		int blueLeftFirst = 36;
+		int blueLeftTurn = -40;
+		int blueLeftSecond = 82;
+		boolean blueLeftShoot = true;
+		
 		autoChoose = new SendableChooser<Command>();
 		autoChoose.addDefault("Auto Drive Forward", new AutoDriveStraightDistance(80));
 		autoChoose.addObject("Do Nothing", new AutoDoNothing());
-		autoChoose.addObject("Auto To Center Peg", new CGAutoExample());
-		autoChoose.addObject("Auto To Right Peg", new CGGearRight());
-		autoChoose.addObject("Auto To Left Peg", new CGGearLeft());
-		autoChoose.addObject("Auto To Left Peg (No PID)", new CGPegNoTurnPid(false));
-		autoChoose.addObject("Auto To Right Peg (No PID)", new CGPegNoTurnPid(true));
-		autoChoose.addObject("Auto Red Side Shoot + Mobility", new CGShootThenMobility(false));
-		autoChoose.addObject("Auto Blue Side Shoot + Mobility", new CGShootThenMobility(true));
+		autoChoose.addObject("Center Peg", new CGAutoExample());
+		autoChoose.addObject("RIGHT Peg RED Alliance", new CGSideGear(redRightFirst, redRightTurn, redRightSecond, redRightShoot));
+		autoChoose.addObject("LEFT Peg RED Alliance", new CGSideGear(redLeftFirst, redLeftTurn, redLeftSecond, redLeftShoot));
+		autoChoose.addObject("RIGHT Peg BLUE Alliance", new CGSideGear(blueRightFirst, blueRightTurn, blueRightSecond, blueRightShoot));
+		autoChoose.addObject("LEFT Peg BLUE Alliance", new CGSideGear(blueLeftFirst, blueLeftTurn, blueLeftSecond, blueLeftShoot));
 
-		SmartDashboard.putData("Autonomous", autoChoose);
+//		autoChoose.addObject("Auto To Left Peg", new CGGearLeft());
+//		autoChoose.addObject("Auto To Left Peg (No PID)", new CGPegNoTurnPid(false));
+//		autoChoose.addObject("Auto To Right Peg (No PID)", new CGPegNoTurnPid(true));
+//		autoChoose.addObject("Auto Red Side Shoot + Mobility", new CGShootThenMobility(false));
+//		autoChoose.addObject("Auto Blue Side Shoot + Mobility", new CGShootThenMobility(true));
+
+		SmartDashboard.putData("AutonomousChooser", autoChoose);
 	}
 }
