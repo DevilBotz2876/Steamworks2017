@@ -25,8 +25,8 @@ public class CGGearLeft extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
 //    	addSequential(new AutoDriveStraightDistance(50));
-    	addSequential(new AutoDriveStraightDistance(80));
-    	addSequential(new AutoTurning(30));
+    	addSequential(new AutoDriveStraightDistance(72));
+    	addSequential(new AutoTurning(60));
     	addSequential(new AutoDriveStraightDistance(30));
 //    	addSequential(new AutoDriveStraightDistance(-6));
 

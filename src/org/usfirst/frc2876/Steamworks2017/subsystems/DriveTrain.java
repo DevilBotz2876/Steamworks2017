@@ -44,7 +44,7 @@ public class DriveTrain extends Subsystem {
 	private final double ROTATION_SENSITIVITY = .7;
 	
 	private final double MAX_RPM = 3127.0f;
-	private final double kTurnToleranceDegrees = 2.0f;
+	private final double kTurnToleranceDegrees = 1.0f;
 	private final double kDistanceTolerance = 2.0f;
 //	private final double RAMP_RATE = 24;
 
