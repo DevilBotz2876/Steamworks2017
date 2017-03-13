@@ -31,7 +31,7 @@ public class AutoShootBall extends Command {
 	final double LOADER_INVERSE_DURATION = 2;
 	double loaderInverseStart;
 
-	public AutoShootBall(float _percentDistanceLeft) {
+	public AutoShootBall(double _percentDistanceLeft) {
 		requires(Robot.shooter);
 		percentDistanceLeft = _percentDistanceLeft;
 	}
