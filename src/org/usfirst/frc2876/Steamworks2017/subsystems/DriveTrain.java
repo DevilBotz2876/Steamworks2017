@@ -10,9 +10,7 @@
 
 package org.usfirst.frc2876.Steamworks2017.subsystems;
 
-import org.usfirst.frc2876.Steamworks2017.Robot;
 import org.usfirst.frc2876.Steamworks2017.RobotMap;
-import org.usfirst.frc2876.Steamworks2017.commands.DriveControl;
 import org.usfirst.frc2876.Steamworks2017.commands.DriveControlSimple;
 
 import com.ctre.CANTalon;
@@ -43,7 +41,8 @@ public class DriveTrain extends Subsystem {
 
 	private final double ROTATION_SENSITIVITY = .7;
 	
-	private final double MAX_RPM = 3127.0f;
+//	private final double MAX_RPM = 3127.0f;
+	private final double MAX_RPM = 14814.0f;
 	private final double kTurnToleranceDegrees = 1.0f;
 	private final double kDistanceTolerance = 2.0f;
 //	private final double RAMP_RATE = 24;
@@ -73,7 +72,7 @@ public class DriveTrain extends Subsystem {
 	public void initDefaultCommand() {
 //		setDefaultCommand(new DriveControl());
 		setDefaultCommand(new DriveControlSimple());
-		//setDefaultCommand(new DriveControlPercentVbus());
+//		setDefaultCommand(new DriveControlPercentVbus());
 		
 	}
 	public DriveTrain() {
@@ -92,8 +91,10 @@ public class DriveTrain extends Subsystem {
 		frontRightTalon.set(rearRightTalon.getDeviceID());
 		leftMaster = rearLeftTalon;
 		rightMaster = rearRightTalon;
-		leftMaster.setF(.3271);
-		rightMaster.setF(.3271);
+		leftMaster.setF(.0691);
+		rightMaster.setF(.0691);
+//		leftMaster.setF(.3271);
+//		rightMaster.setF(.3271);
 		
 //		rightMaster.setVoltageRampRate(RAMP_RATE);
 //		leftMaster.setVoltageRampRate(RAMP_RATE);
@@ -101,7 +102,8 @@ public class DriveTrain extends Subsystem {
 		// TODO: do we need this?
 		rightMaster.reverseOutput(true);
 
-		setVelocityMode();
+		 setVelocityMode();
+//		setVbusMode();
 
 		// TODO: are we using a usb cam this year??
 		// initializeCamera();
