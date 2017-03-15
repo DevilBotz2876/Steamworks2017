@@ -176,6 +176,8 @@ public class DriveTrain extends Subsystem {
 		// SmartDashboard.putNumber("frontRightValue", frontRightTalon.get());
 		// SmartDashboard.putNumber("rearLeftValue", rearLeftTalon.get());
 		// SmartDashboard.putNumber("rearRightValue", rearRightTalon.get());
+		
+		SmartDashboard.putNumber("Distance Percent Left", Robot.driveTrain.getDistancePercentLeftToGo());
 
 		SmartDashboard.putNumber("LeftMasterSetpoint", leftMaster.getSetpoint());
 		SmartDashboard.putNumber("RightMasterSetpoint", rightMaster.getSetpoint());

@@ -178,15 +178,15 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void autoPicker() {
-		int redRightFirst = 36;
+		int redRightFirst = 40; //36 previously, but 40 is looking better.
 		int redRightTurn = -40;
 		int redRightSecond = 82;
 		boolean redRightShoot = true;
 		double percentDistanceLeft = 50;
 		
-		int redLeftFirst = 36;
-		int redLeftTurn = -40;
-		int redLeftSecond = 82;
+		int redLeftFirst = 45;
+		int redLeftTurn = 42;
+		int redLeftSecond = 78;
 		boolean redLeftShoot = false;
 		
 		
@@ -195,8 +195,8 @@ public class Robot extends IterativeRobot {
 		int blueRightSecond = 82;
 		boolean blueRightShoot = false;
 		
-		int blueLeftFirst = 36;
-		int blueLeftTurn = -40;
+		int blueLeftFirst = 40;
+		int blueLeftTurn = 40;
 		int blueLeftSecond = 82;
 		boolean blueLeftShoot = true;
 		

@@ -92,7 +92,7 @@ public class OI {
 //		SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
 //
 //		SmartDashboard.putData("ShooterIdle", new ShooterIdle());
-//		SmartDashboard.putData("ShootBall", new ShootBall());
+		SmartDashboard.putData("ShootBall", new ShootBall());
 //
 //		SmartDashboard.putData("IntakeStart", new IntakeStart());
 //		SmartDashboard.putData("IntakeStop", new IntakeStop());

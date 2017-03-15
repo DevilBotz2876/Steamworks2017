@@ -38,7 +38,6 @@ public class AutoShootBall extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-//		Robot.shooter.shooterStart(Robot.shooter.MAX_RPM);
 		startTime = Timer.getFPGATimestamp() * 10;
 	}
 
@@ -46,10 +45,13 @@ public class AutoShootBall extends Command {
 	protected void execute() {
 		
 		// Wait to start shooter until we are halfway to peg
+
 		if (Robot.driveTrain.getDistancePercentLeftToGo() > percentDistanceLeft) {
 			return;
 		}
 		
+		Robot.shooter.shooterStart(Robot.shooter.MAX_RPM);
+
 		double currentTime = Timer.getFPGATimestamp() * 10;
 		double currentDiff = currentTime - startTime;
 		if (currentDiff > LOADER_WAIT && !hasLoaderStarted) {
