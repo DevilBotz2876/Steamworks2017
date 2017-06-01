@@ -94,6 +94,8 @@ public class DriveTrain extends Subsystem {
 		rightMaster = rearRightTalon;
 		leftMaster.setF(.3271);
 		rightMaster.setF(.3271);
+		leftMaster.setP(0.0341);
+		rightMaster.setP(0.0341);
 		
 //		rightMaster.setVoltageRampRate(RAMP_RATE);
 //		leftMaster.setVoltageRampRate(RAMP_RATE);
@@ -155,6 +157,9 @@ public class DriveTrain extends Subsystem {
 
 
 	public void updateSmartDashboard() {
+		
+		System.out.println("lerror: " + leftMaster.getClosedLoopError() + 
+		" rerror: " + rightMaster.getClosedLoopError());
 		
 		SmartDashboard.putData("NavX", navx);
 		SmartDashboard.putNumber("navX angle", navx.getAngle());
