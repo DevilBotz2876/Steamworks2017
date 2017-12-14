@@ -8,56 +8,62 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 
-
 package org.usfirst.frc2876.Steamworks2017.commands;
+
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.Relay.Value;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.TimedCommand;
+
 import org.usfirst.frc2876.Steamworks2017.Robot;
-import org.usfirst.frc2876.Steamworks2017.RobotMap;
 
 /**
  *
  */
-public class AutoShoot extends Command {
+public class AutoShootBall extends Command {
 
+	double percentDistanceLeft;
 	double startTime;
 	boolean hasLoaderStarted = false;
 	boolean isLoaderInversed = false;
-	final double LOADER_WAIT = 1.0;
-	final int LOADER_INVERSE_INTERVAL = 2; //time between inverting. Used in modulus, so it needs to be an int
-	final double LOADER_INVERSE_DURATION = .25;
+	final double LOADER_WAIT = 10.0;
+	final int LOADER_INVERSE_INTERVAL = 20; // time between inverting. Used in
+											// modulus, so it needs to be an int
+	final double LOADER_INVERSE_DURATION = 2;
 	double loaderInverseStart;
-	double duration;
 
-	public AutoShoot(double shootDuration) {
-		duration = shootDuration;
+	public AutoShootBall(double _percentDistanceLeft) {
 		requires(Robot.shooter);
-
+		percentDistanceLeft = _percentDistanceLeft;
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		Robot.shooter.shooterStart(Robot.shooter.MAX_RPM);
-		startTime = Timer.getFPGATimestamp();
-		RobotMap.driveTrainLightSpike.set(Value.kForward);
-
+		startTime = Timer.getFPGATimestamp() * 10;
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		double currentTime = Timer.getFPGATimestamp();
+		
+		// Wait to start shooter until we are halfway to peg
+
+		if (Robot.driveTrain.getDistancePercentLeftToGo() > percentDistanceLeft) {
+			return;
+		}
+		
+		Robot.shooter.shooterStart(Robot.shooter.MAX_RPM);
+
+		double currentTime = Timer.getFPGATimestamp() * 10;
 		double currentDiff = currentTime - startTime;
-		if(currentDiff > LOADER_WAIT && !hasLoaderStarted){
+		if (currentDiff > LOADER_WAIT && !hasLoaderStarted) {
 			Robot.shooter.loaderStart();
 			hasLoaderStarted = true;
 		}
-		if(!isLoaderInversed && (int)currentDiff % LOADER_INVERSE_INTERVAL == 0){
+		if (!isLoaderInversed && (int) currentDiff % LOADER_INVERSE_INTERVAL == 0 && currentTime > startTime + 10) {
 			Robot.shooter.loaderInverse();
 			isLoaderInversed = true;
 			loaderInverseStart = currentTime;
 		}
-		if(isLoaderInversed && currentTime - loaderInverseStart > LOADER_INVERSE_DURATION) {    		
+		if (isLoaderInversed && currentTime - loaderInverseStart > LOADER_INVERSE_DURATION) {
 			Robot.shooter.loaderStart();
 			isLoaderInversed = false;
 		}
@@ -65,14 +71,13 @@ public class AutoShoot extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return (Timer.getFPGATimestamp() - startTime > duration);
+		return false;
 	}
 
 	// Called once after isFinished returns true
 	protected void end() {
 		Robot.shooter.loaderStop();
 		Robot.shooter.shooterStop();
-		RobotMap.driveTrainLightSpike.set(Value.kOff);
 	}
 
 	// Called when another command which requires one or more of the same

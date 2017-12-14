@@ -13,12 +13,14 @@ public class AutoDriveStraightDistance extends Command {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.driveTrain);
-    	m_distance = -distance;
+//    	m_distance = -distance; /*For gear on back */
+    	m_distance = distance;  /*For gear on front */
+
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.driveTrain.startStraight();
+    	Robot.driveTrain.startStraight(false);
     	Robot.driveTrain.startDistance(m_distance);
     }
 

@@ -21,11 +21,13 @@ import org.usfirst.frc2876.Steamworks2017.subsystems.GearTarget;
 /**
  *
  */
-public class AutoToCenterPeg extends Command {
+public class AutoAlignDriveToCenterPeg extends Command {
 
 	int counter;
+	boolean didWeFindTarget;
+	double distance;
 
-	public AutoToCenterPeg() {
+	public AutoAlignDriveToCenterPeg() {
 		// This is suppose to turn to the peg
 		// TODO - rename this class
 		requires(Robot.driveTrain);
@@ -36,18 +38,17 @@ public class AutoToCenterPeg extends Command {
 	protected void initialize() {
 		counter = 0;
 		RobotMap.driveTrainLightSpike.set(Value.kForward);
-		//		GearTarget t = Robot.vision.getGearTarget();
-		//			SmartDashboard.putString("Gear Target is", "null");
-		//			SmartDashboard.putString("Gear Target", t.toString());
-		//			SmartDashboard.putString("Gear Target is", "ok");
+		didWeFindTarget = false;
 		for(int i = 0; i < 10; i++){
 			GearTarget t = Robot.vision.getGearTarget();
 			if (t != null){ 
+				distance = t.distance();
 				Robot.driveTrain.startTurn(t.angle());
 				SmartDashboard.putString("Gear Target t", t.toString());
 				break;
 			}
 		}
+		didWeFindTarget = true;
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -59,11 +60,23 @@ public class AutoToCenterPeg extends Command {
 			SmartDashboard.putString("GTExec", t.toString());
 			SmartDashboard.putString("GTExecStatus", "ok");
 		}
+		if (Robot.driveTrain.isTurnDone() == true) {
+			Robot.driveTrain.stopTurn();
+			if (Robot.driveTrain.isDistanceRunning() == false) {
+				Robot.driveTrain.startDistance(distance);
+			}
+		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return Robot.driveTrain.isTurnDone();
+		if (didWeFindTarget == false) {
+			return false;
+		}
+		if (Robot.driveTrain.isTurnDone() == true && Robot.driveTrain.isDistanceDone()) {
+			return true;
+		}
+		return false;
 	}
 
 	// Called once after isFinished returns true

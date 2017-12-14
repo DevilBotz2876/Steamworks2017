@@ -10,42 +10,40 @@
 
 package org.usfirst.frc2876.Steamworks2017.commands;
 
+import edu.wpi.first.wpilibj.Relay.Value;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc2876.Steamworks2017.Robot;
+import org.usfirst.frc2876.Steamworks2017.RobotMap;
+import org.usfirst.frc2876.Steamworks2017.subsystems.GearTarget;
 
 /**
  *
  */
-public class DriveControlPercentVbus extends Command {
+public class UpdateForPegAngle extends Command {
 
-	double leftY;
-	double rightX;
+	int counter;
 
-	public DriveControlPercentVbus() {
-		requires(Robot.driveTrain);
+	public UpdateForPegAngle() {
+		// This is suppose to turn to the peg
+		// TODO - rename this class
+		requires(Robot.vision);
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		Robot.driveTrain.setVbusMode();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-//		if (!Robot.driveTrain.toggleInverseDrive()) {
-			// Forward is Intake
-			leftY = Robot.oi.getLeftY();
-//		} else {
-//			// Forward is Gear
-//			leftY = Robot.oi.getLeftY() * -1;
-//		}
-
-		rightX = Robot.oi.getRightX();
-		//Robot.driveTrain.setVelocityJoysticks(leftY, rightX);
-		Robot.driveTrain.myRobot.arcadeDrive(leftY, rightX, false);
-
+		GearTarget t = Robot.vision.getGearTarget();
+		if (t == null) {
+			SmartDashboard.putString("Peg Angle Status: ", "null ");
+		} else {
+			SmartDashboard.putNumber("Peg Angle: ", t.angle());
+			SmartDashboard.putString("Peg Angle Status: ", "ok");
+		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -55,10 +53,12 @@ public class DriveControlPercentVbus extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
+	
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
+		end();
 	}
 }

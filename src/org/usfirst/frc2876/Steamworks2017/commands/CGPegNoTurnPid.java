@@ -1,13 +1,15 @@
 package org.usfirst.frc2876.Steamworks2017.commands;
 
+import org.usfirst.frc2876.Steamworks2017.Robot;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class CGGearLeft extends CommandGroup {
+public class CGPegNoTurnPid extends CommandGroup {
 
-    public CGGearLeft() {
+    public CGPegNoTurnPid(boolean isRightPeg) {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -24,11 +26,8 @@ public class CGGearLeft extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-//    	addSequential(new AutoDriveStraightDistance(50));
-    	addSequential(new AutoDriveStraightDistance(72));
-    	addSequential(new AutoTurning(60));
-    	addSequential(new AutoDriveStraightDistance(30));
-//    	addSequential(new AutoDriveStraightDistance(-6));
-
+    	double distanceBetweenWheels = 26; //in inches
+		addSequential(new AutoDriveStraightDistance(90));
+		Robot.driveTrain.turnSide(isRightPeg, Math.PI * distanceBetweenWheels / 3.0);
     }
 }

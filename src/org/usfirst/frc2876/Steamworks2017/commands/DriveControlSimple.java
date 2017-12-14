@@ -37,16 +37,16 @@ public class DriveControlSimple extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (!Robot.driveTrain.toggleInverseDrive()) {
+//		if (!Robot.driveTrain.toggleInverseDrive()) {
 			// Forward is Intake
 			leftY = Robot.oi.getLeftY();
-		} else {
-			// Forward is Gear
-			leftY = Robot.oi.getLeftY() * -1;
-		}
+//		} else {
+//			// Forward is Gear
+//			leftY = Robot.oi.getLeftY() * -1;
+//		}
 
 		rightX = Robot.oi.getRightX();
-		Robot.driveTrain.setVelocityArcadeJoysticks(leftY, rightX);
+		Robot.driveTrain.setVelocityArcadeJoysticksGain(leftY, rightX);
 		// Robot.driveTrain.myRobot.arcadeDrive(leftY, rightX, false);
 
 	}
