@@ -19,6 +19,7 @@ import com.ctre.CANTalon;
 import com.ctre.CANTalon.TalonControlMode;
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
@@ -136,8 +137,8 @@ public class DriveTrain extends Subsystem {
 				double minMove = 500.0f;
 				output = minRpm(output, minMove);
 
-				leftMaster.set(-output);
-				rightMaster.set(output);
+				leftMaster.set(output);
+				rightMaster.set(-output);
 			}
 		});
 
@@ -150,7 +151,9 @@ public class DriveTrain extends Subsystem {
 	public void initializeCamera() {
 		server = CameraServer.getInstance();
 //		server.setQuality(50);
-		server.startAutomaticCapture("cam0", 0);
+		UsbCamera serverUsb = server.startAutomaticCapture("cam0", 0);
+		serverUsb.setFPS(15);
+		serverUsb.setResolution(160, 120);
 
 	}
 
